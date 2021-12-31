@@ -149,6 +149,7 @@ void UserData()
 {
 	FILE *f_user;
 	user userdata;
+	char statususer;
 	
 	f_user = fopen("User.DAT", "rt");
 	

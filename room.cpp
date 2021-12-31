@@ -5,12 +5,14 @@ Author			: Garly Nugraha & Nazwa Fitriyani Zahra
 Date			: 08/12/2001
 */
 
+/* ========== Header File ========== */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
 #include "welcome.h"
 #include "room.h"
+/* ======= End of Header File ====== */
 
 int RoomMenu()
 {
@@ -147,7 +149,8 @@ void RoomData()
     { 
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
-			
+		
+		system("cls");
 		RoomMenu();
     } 
 
@@ -180,7 +183,77 @@ void RoomRead()
 
 void RoomUpdate()
 {
+	int code;
+	room roomdata, temproomdata;
+	FILE *f_room, *f_temproom;
 	
+	fflush(stdin);
+	printf("Enter the Room Code to be updated : ");
+	scanf("%d", &code);
+	
+	printf("Name : ");
+	fflush(stdin);
+	gets(temproomdata.name);
+		
+	printf("Type (Single/Double/Triple) : ");
+	fflush(stdin);
+	gets(temproomdata.type);
+		
+	printf("Total : ");
+	fflush(stdin);
+	scanf("%d", &temproomdata.total);
+		
+	printf("Price : ");
+	fflush(stdin);
+	scanf("%li", &temproomdata.price);
+
+	printf("\n");
+	fflush(stdin);
+	
+	f_room = fopen("Room.DAT", "rb");
+	f_temproom = fopen("TempRoom.DAT", "wb");
+	
+	if (!f_room) 
+    { 
+        printf ("ERROR : Sorry file cannot be open!!!\n"); 
+        getch();
+		
+		system("cls");
+		RoomMenu();
+    } 
+    
+    if (!f_temproom) 
+    { 
+        printf ("ERROR : Sorry file cannot be open!!!\n"); 
+        getch();
+		
+		system("cls");
+		RoomMenu();
+    }
+	
+	while (fread(&roomdata, sizeof(roomdata),1, f_room))
+	{
+		if(code == roomdata.code){
+			temproomdata.code = roomdata.code;
+			fwrite(&temproomdata, sizeof(temproomdata),1,f_temproom);
+		}  else {
+			fwrite(&roomdata, sizeof(roomdata),1,f_temproom);
+		}
+	}
+	
+	fclose(f_room);
+	fclose(f_temproom);
+
+	remove("Room.DAT");
+	rename("TempRoom.DAT", "Room.DAT");
+	
+	system("cls");
+	printf("Data successfully updated!!!\n");
+	printf("Press Any Key to continue . . .");
+	getch();
+	
+	system("cls");
+	RoomMenu();
 }
 
 int CheckRoomCode(room roomdata, int id)
