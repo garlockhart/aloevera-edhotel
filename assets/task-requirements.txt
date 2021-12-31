@@ -1,0 +1,43 @@
+Tugas Besar Praktikum
+Mata Kuliah : Dasar-Dasar Pemrograman
+D3 – JTK Polban - Tahun Ajaran 2021/2022
+
+1. Tugas dikerjakan secara berkelompok (terdiri dari 2 orang)
+2. Tugas Besar ini terdiri 
+	a. Membuat program dalam Bahasa C / C++, dimana program yang dibuat harus terdapat penggunaan:
+		i. procedure, 
+		ii. function, 
+		iii. record / komposit dan 
+		iv. operasi baca simpan ke dalam file.
+		v. Penggunaan ADT (file.h)
+	b. Membuat video presentasi yang berisi :
+		i. Pembuka : Judul aplikasi, informasi pembuat, deskripsi aplikasi, fitur-fitur yang terdapat di aplikasi (maksimum 3 menit)
+		ii. Demo Aplikasi (maksimum 5 menit)
+		iii. Penjelasan penggunaan procedure, function, record dan operasi file (maksimum 6 menit)
+		iv. Penutup (maksimum 1 menit)
+	c. Video yang dibuat digabung dalam satu video dan diupload dalam youtube pribadi yang dapat diakses oleh pengguna umum.	
+3. Semakin banyak fitur yang terdapat di aplikasi maka nilai akan semakin tinggi.
+4. Aplikasi (berupa source code, file .exe dan file pendukung lainnya) dikumpulkan selambat nya tanggal Januari 2022
+5. Video sudah diupload dalam channel youtube selambatnya tanggal Januari 2022
+
+
+Berikut dilampirkan link video yang telah masing-masing kelompok upload ke youtube.
+
+1.Muhammad Albar
+- https://youtu.be/7umpAuIuSQ0 (Part 1)
+- https://youtu.be/Ke-PSTqJCHQ (Part 2)
+- https://youtu.be/ljNt0ZSnWsw (Part 3)
+
+2. Naufal Rajabi - Icha Cahya
+https://youtu.be/7lhYRtngDjE
+
+3. Nadia M. - Zara Veda M.
+https://youtu.be/OXBA5zPxgZg
+
+4. Dewanto Joyo - Mufqi Uwais
+https://youtu.be/yBr7KWgOQ8U
+
+5. Ananda Bayu - Chofief Alfarroqie
+https://www.youtube.com/watch?v=zxiJazsTtMQ
+
+
