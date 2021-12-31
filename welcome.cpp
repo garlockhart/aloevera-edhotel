@@ -17,6 +17,7 @@ Date			: 08/12/2001
 #include "auth.h"
 #include "about.h"
 #include "faq.h"
+#include "reservation.h"
 /* ======= End of Header File ====== */
 
 int Welcome()
@@ -36,10 +37,11 @@ int Welcome()
 	printf("|==================================================|\n");
 	printf("|1. Login                                          |\n");
 	printf("|2. Room                                           |\n");
-	printf("|3. User                                           |\n");
-	printf("|4. About                                          |\n");
-	printf("|5. FAQ                                            |\n");
-	printf("|6. Exit                                           |\n");
+	printf("|3. Reservation                                    |\n");
+	printf("|4. User                                           |\n");
+	printf("|5. About                                          |\n");
+	printf("|6. FAQ                                            |\n");
+	printf("|7. Exit                                           |\n");
 	printf("|==================================================|\n");
 	printf("|      Copyright 2021 - Develop by Nedersoft       |\n");
 	printf("|==================================================|\n");
@@ -58,15 +60,18 @@ int Welcome()
 			RoomMenu();
 			break;
 		case 3:
+			ReservationMenu();
+			break;			
+		case 4:
 			UserMenu();
 			break;
-		case 4:
+		case 5:
 			About();
 			break;
-		case 5:
+		case 6:
 			FAQ();
 			break; 
-		case 6:
+		case 7:
 			printf("Are you sure? (Y/N)"); 
         	more = getche();
         	system("cls");
