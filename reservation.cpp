@@ -15,6 +15,7 @@ Date			: 08/12/2001
 #include "welcome.h"
 #include "room.h"
 #include "reservation.h"
+#include "compare.h"
 /* ======= End of Header File ====== */
 
 int ReservationMenu()
@@ -26,8 +27,9 @@ int ReservationMenu()
 	printf("|==================================|\n");
 	printf("|1. Create                         |\n");
 	printf("|2. Read                           |\n");
-	printf("|3. Delete                         |\n");
-	printf("|4. Back                           |\n");
+	printf("|3. Status                         |\n");
+	printf("|4. Delete                         |\n");
+	printf("|5. Back                           |\n");
 	printf("|==================================|\n");
     
     printf("\n\n");
@@ -43,9 +45,12 @@ int ReservationMenu()
 			ReservationRead();
 			break;
 		case 3:
-			ReservationDelete();
+			ReservationStatusUpdate();
 			break;
 	 	case 4:
+			ReservationDelete();
+			break;
+		case 5:
 			Welcome();
 			break;
 	 	default:
@@ -60,9 +65,9 @@ int ReservationMenu()
 
 void ReservationCreate()
 {
-	FILE *f_reservation, *f_room;
+	FILE *f_reservation, *f_room, *f_temproom;;
 	Reservation ReservationData;
-	room roomdata;
+	room roomdata, temproomdata;
 	int roomcode, checkreservation, checkroom, more;
 	time_t t;
 	struct tm now;
@@ -118,6 +123,10 @@ void ReservationCreate()
 		printf("Age			: ");
 		fflush(stdin);
 		scanf("%d", &ReservationData.Age);
+		
+		printf("Number of rooms booked	: ");
+		fflush(stdin);
+		scanf("%d", &ReservationData.RentRoomData.Quantity);
 				
 		printf("Room code		: ");
 		fflush(stdin);
@@ -128,23 +137,34 @@ void ReservationCreate()
 		{
 			ReservationData.RentRoomData.Code = roomcode;
 			f_room = fopen("Room.DAT","rb");
+			f_temproom = fopen("TempRoom.DAT", "wb");
 			while(fread(&roomdata, sizeof(roomdata),1, f_room)){
 				if(roomcode == roomdata.code){
 					strcpy(ReservationData.RentRoomData.Name,roomdata.name);
 					ReservationData.RentRoomData.Price = roomdata.price;
+					
+					temproomdata.code = roomdata.code;
+					strcpy(temproomdata.name,roomdata.name);
+					strcpy(temproomdata.type,roomdata.type);
+					temproomdata.total = roomdata.total - ReservationData.RentRoomData.Quantity;
+					temproomdata.price = roomdata.price;
+					fwrite(&temproomdata, sizeof(temproomdata),1,f_temproom);
+				} else {
+					fwrite(&roomdata, sizeof(roomdata),1,f_temproom);
 				}
 			}
+			
 			fclose(f_room);
+			fclose(f_temproom);
+		
+			remove("Room.DAT");
+			rename("TempRoom.DAT", "Room.DAT");
 		} else {
 			
 		}
 		
 		printf("Type of the room	: %s \n", ReservationData.RentRoomData.Name);
 		printf("The price of the room	: %li \n", ReservationData.RentRoomData.Price);
-		
-		printf("Number of rooms booked	:");
-		fflush(stdin);
-		scanf("%d", &ReservationData.RentRoomData.Quantity);
 		
 		printf("Check In Day		: ");
 		fflush(stdin);
@@ -195,6 +215,9 @@ void ReservationCreate()
 		ReservationData.ReservationDate.Day = now.tm_mday;
 		ReservationData.ReservationDate.Month = now.tm_mon + 1;
 		ReservationData.ReservationDate.Year = now.tm_year + 1900;
+		
+		strcpy(ReservationData.Status,"Reservation");
+		
 		fwrite(&ReservationData, sizeof(ReservationData), 1, f_reservation);
 		
 		printf("Do you want to create more data? (Y/N) ");
@@ -307,6 +330,138 @@ int CheckReservationCode(Reservation ReservationData, int id)
 		fclose(f_reservation);
 		return 0;
 	}
+}
+
+void ReservationStatusUpdate()
+{
+	int Code, Compare;
+	char Status[15], StatusCheckOut[15];
+	room roomdata, temproomdata;
+	Reservation ReservationData, TempReservationData;
+	FILE *f_reservation, *f_room, *f_tempreservation, *f_temproom;
+	
+	printf("Enter the Reservation Code to be updated : ");
+	fflush(stdin);
+	scanf("%d", &Code);
+	
+	printf("Status (Reservation/Check In/Check Out) : ");
+	fflush(stdin);
+	scanf("%[^\n]",&Status); 
+	
+	f_reservation = fopen("Reservation.DAT", "rb");
+	f_room = fopen("Room.DAT", "rb");
+	f_tempreservation = fopen("TempReservation.DAT", "wb");
+	f_temproom = fopen("TempRoom.DAT", "wb");
+	
+	if (!f_reservation) 
+    { 
+        printf ("ERROR : Sorry file cannot be open!!!\n"); 
+        getch();
+		
+		system("cls");
+		ReservationMenu();
+    } 
+    
+    if (!f_room) 
+    { 
+        printf ("ERROR : Sorry file cannot be open!!!\n"); 
+        getch();
+		
+		system("cls");
+		ReservationMenu();
+    } 
+    
+    if (!f_temproom) 
+    { 
+        printf ("ERROR : Sorry file cannot be open!!!\n"); 
+        getch();
+		
+		system("cls");
+		ReservationMenu();
+    }
+    
+    if (!f_tempreservation) 
+    { 
+        printf ("ERROR : Sorry file cannot be open!!!\n"); 
+        getch();
+		
+		system("cls");
+		ReservationMenu();
+    }
+    
+    while (fread(&ReservationData, sizeof(ReservationData),1, f_reservation))
+	{
+		if(Code == ReservationData.ReservationCode){
+			TempReservationData.ReservationCode = ReservationData.ReservationCode;
+			strcpy(TempReservationData.FullName,ReservationData.FullName);
+			strcpy(TempReservationData.Email,ReservationData.Email);
+			strcpy(TempReservationData.Email,ReservationData.Email);
+			TempReservationData.Age = ReservationData.Age;
+			TempReservationData.RentRoomData.Code = ReservationData.RentRoomData.Code;
+			strcpy(TempReservationData.RentRoomData.Name,ReservationData.RentRoomData.Name);
+			TempReservationData.RentRoomData.Quantity = ReservationData.RentRoomData.Quantity;
+			TempReservationData.RentRoomData.Price = ReservationData.RentRoomData.Price;
+			TempReservationData.LongStay = ReservationData.LongStay;
+			TempReservationData.CheckInDate.Day = ReservationData.CheckInDate.Day;
+			TempReservationData.CheckInDate.Month = ReservationData.CheckInDate.Month;
+			TempReservationData.CheckInDate.Year = ReservationData.CheckInDate.Year;
+			TempReservationData.CheckOutDate.Day = ReservationData.CheckOutDate.Day;
+			TempReservationData.CheckOutDate.Month = ReservationData.CheckOutDate.Month;
+			TempReservationData.CheckOutDate.Year = ReservationData.CheckOutDate.Year;
+			TempReservationData.Total = ReservationData.Total;
+			TempReservationData.Discount = ReservationData.Discount;
+			TempReservationData.GrandTotal = ReservationData.GrandTotal;
+			TempReservationData.ReservationDate.Day = ReservationData.ReservationDate.Day;
+			TempReservationData.ReservationDate.Month = ReservationData.ReservationDate.Month;
+			TempReservationData.ReservationDate.Year = ReservationData.ReservationDate.Year;
+			strcpy(TempReservationData.Status,Status);
+			
+			while (fread(&roomdata, sizeof(roomdata), 1, f_room))
+			{
+				if(TempReservationData.RentRoomData.Code == roomdata.code){
+					temproomdata.code = roomdata.code;
+					strcpy(temproomdata.name,roomdata.name);
+					strcpy(temproomdata.type,roomdata.type);
+					
+					strcpy(StatusCheckOut,"Check Out");
+
+					Compare = StringCompare(Status,StatusCheckOut);
+					if (Compare == 0){
+						temproomdata.total = roomdata.total + TempReservationData.RentRoomData.Quantity;
+					} else {
+						temproomdata.total = roomdata.total;
+					}
+					
+					temproomdata.price = roomdata.price;
+					fwrite(&temproomdata, sizeof(temproomdata),1,f_temproom);
+				}  else {
+					fwrite(&roomdata, sizeof(roomdata),1,f_temproom);
+				}
+			}
+	
+			fwrite(&TempReservationData, sizeof(TempReservationData),1,f_tempreservation);
+		}  else {
+			fwrite(&ReservationData, sizeof(ReservationData),1,f_tempreservation);
+		}
+	}
+	
+	fclose(f_room);
+	fclose(f_reservation);
+	fclose(f_temproom);
+	fclose(f_tempreservation);
+
+	remove("Room.DAT");
+	remove("Reservation.DAT");
+	rename("TempRoom.DAT", "Room.DAT");
+	rename("TempReservation.DAT", "Reservation.DAT");
+	
+	system("cls");
+	printf("Data successfully updated!!!\n");
+	printf("Press Any Key to continue . . .");
+	getch();
+	
+	system("cls");
+	ReservationMenu();
 }
 
 void ReservationDelete()

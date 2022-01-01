@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o welcome.o auth.o about.o faq.o room.o reservation.o user.o
-LINKOBJ  = main.o welcome.o auth.o about.o faq.o room.o reservation.o user.o
+OBJ      = main.o welcome.o auth.o about.o faq.o room.o reservation.o user.o compare.o
+LINKOBJ  = main.o welcome.o auth.o about.o faq.o room.o reservation.o user.o compare.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -47,3 +47,6 @@ reservation.o: reservation.cpp
 
 user.o: user.cpp
 	$(CPP) -c user.cpp -o user.o $(CXXFLAGS)
+
+compare.o: compare.cpp
+	$(CPP) -c compare.cpp -o compare.o $(CXXFLAGS)

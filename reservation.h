@@ -36,6 +36,7 @@ typedef struct {
 	int Discount;
 	long int GrandTotal;
 	Date ReservationDate;
+	char Status[15];
 }Reservation; 
 
 int ReservationMenu();
@@ -44,6 +45,7 @@ void CountReservationData();
 void ReservationData();
 void ReservationRead();
 int CheckReservationCode(Reservation ReservationData, int ID);
+void ReservationStatusUpdate();
 void ReservationDelete();
 void AlertDeleteOneReservationData();
 void DeleteOneReservationData(Reservation ReservationData, int ID);

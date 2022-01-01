@@ -295,7 +295,7 @@ int CheckRoomCode(room roomdata, int id)
 		f_room = fopen("Room.DAT","rb");
 		while(fread(&roomdata, sizeof(roomdata), 1, f_room))
 		{
-			if( id == roomdata.code)
+			if(id == roomdata.code)
 			{
 				fclose(f_room);
 				return 1;
