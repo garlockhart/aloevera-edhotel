@@ -138,10 +138,11 @@ void RoomCreate()
 	RoomMenu();
 }
 
-void RoomData()
+void CountRoomData()
 {
 	FILE *f_room;
-	room roomdata;
+	char line[255];
+	int count = 0;
 	
 	f_room = fopen("Room.DAT", "rt");
 	
@@ -153,12 +154,41 @@ void RoomData()
 		system("cls");
 		RoomMenu();
     } 
+	
+	while(fgets(line, 255, f_room))
+    {
+    	count++;
+	}
+	
+	printf("The amount of data available is %d", count);
+    printf("\n\n");
+    
+    fclose(f_room);
+}
+
+void RoomData()
+{
+	FILE *f_room;
+	room roomdata;
+    
+    CountRoomData();
 
     printf("|==================================================|\n");
     printf("|                     Room Data                    |\n");
     printf("|==================================================|\n");
     printf("| ID      Name      Type     Total       Price     |\n");
     printf("|==================================================|\n");
+    
+    f_room = fopen("Room.DAT", "rt");
+	
+    if (!f_room) 
+    { 
+        printf ("ERROR : Sorry file cannot be open!!!\n"); 
+        getch();
+		
+		system("cls");
+		RoomMenu();
+    } 
 	
 	while ((fread(&roomdata, sizeof(roomdata), JUM_BLOK, f_room)) == JUM_BLOK)
 	{

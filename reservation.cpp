@@ -26,9 +26,8 @@ int ReservationMenu()
 	printf("|==================================|\n");
 	printf("|1. Create                         |\n");
 	printf("|2. Read                           |\n");
-	printf("|3. Update                         |\n");
-	printf("|4. Delete                         |\n");
-	printf("|5. Back                           |\n");
+	printf("|3. Delete                         |\n");
+	printf("|4. Back                           |\n");
 	printf("|==================================|\n");
     
     printf("\n\n");
@@ -44,12 +43,9 @@ int ReservationMenu()
 			ReservationRead();
 			break;
 		case 3:
-			ReservationUpdate();
-			break; 
-		case 4:
 			ReservationDelete();
 			break;
-	 	case 5:
+	 	case 4:
 			Welcome();
 			break;
 	 	default:
@@ -65,9 +61,9 @@ int ReservationMenu()
 void ReservationCreate()
 {
 	FILE *f_reservation, *f_room;
-	reservation reservationdata;
+	Reservation ReservationData;
 	room roomdata;
-	int roomcode,check,checkroom, more;
+	int roomcode, checkreservation, checkroom, more;
 	time_t t;
 	struct tm now;
 	
@@ -79,16 +75,20 @@ void ReservationCreate()
 
 	if (!f_reservation)
 	{
-		printf("File tidak dapat dibuat!\r\n");
+		printf ("ERROR : Sorry file cannot be open!!!\n"); 
+        getch();
+		
+		system("cls");
+		ReservationMenu();
 	}
 	
 	do {
-		printf("\nReservation Code	: ");
+		printf("Reservation Code	: ");
 		fflush(stdin);
-		scanf("%d", &reservationdata.code);
+		scanf("%d", &ReservationData.ReservationCode);
 		
-		check = CheckReservationCode(reservationdata, reservationdata.code);
-		if(check != 0)
+		checkreservation = CheckReservationCode(ReservationData, ReservationData.ReservationCode);
+		if(checkreservation != 0)
 		{
 			system("cls");
 			printf("ERROR : Reservation code has been used, please enter another code!!!\n");
@@ -99,35 +99,39 @@ void ReservationCreate()
 			ReservationCreate();
 		}
 		
-		printf("Fullname		: ");
+		printf("Nasional Identity Number		: ");
 		fflush(stdin);
-		gets(reservationdata.fullname);
+		gets(ReservationData.NIN);
+		
+		printf("Full Name		: ");
+		fflush(stdin);
+		scanf("%[^\n]",&ReservationData.FullName); 
 		
 		printf("Email			: ");
 		fflush(stdin);
-		gets(reservationdata.email);
+		gets(ReservationData.Email);
 		
 		printf("Gender (Male/Female)	: ");
 		fflush(stdin);
-		gets(reservationdata.gender);
+		gets(ReservationData.Gender);
 		
 		printf("Age			: ");
 		fflush(stdin);
-		scanf("%d", &reservationdata.age);
+		scanf("%d", &ReservationData.Age);
 				
-		printf("\nRoom code		: ");
+		printf("Room code		: ");
 		fflush(stdin);
-		scanf("\t%d", &roomcode);
+		scanf("%d", &roomcode);
 		
 		checkroom = CheckRoomCode(roomdata, roomcode);
 		if(checkroom != 0)
 		{
-			reservationdata.rentroomdata.code = roomcode;
+			ReservationData.RentRoomData.Code = roomcode;
 			f_room = fopen("Room.DAT","rb");
 			while(fread(&roomdata, sizeof(roomdata),1, f_room)){
 				if(roomcode == roomdata.code){
-					strcpy(reservationdata.rentroomdata.name,roomdata.name);
-					reservationdata.rentroomdata.price = roomdata.price;
+					strcpy(ReservationData.RentRoomData.Name,roomdata.name);
+					ReservationData.RentRoomData.Price = roomdata.price;
 				}
 			}
 			fclose(f_room);
@@ -135,52 +139,89 @@ void ReservationCreate()
 			
 		}
 		
-		printf("Type of the room	: %s",reservationdata.rentroomdata.name);
-		printf("\n");
-		printf("The price of the room	: %li",reservationdata.rentroomdata.price);
-		printf("Quantity		:");
+		printf("Type of the room	: %s \n", ReservationData.RentRoomData.Name);
+		printf("The price of the room	: %li \n", ReservationData.RentRoomData.Price);
+		
+		printf("Number of rooms booked	:");
 		fflush(stdin);
-		scanf("%d", &reservationdata.rentroomdata.quantity);
+		scanf("%d", &ReservationData.RentRoomData.Quantity);
 		
-		reservationdata.total = reservationdata.rentroomdata.price * reservationdata.rentroomdata.quantity;
+		printf("Check In Day		: ");
+		fflush(stdin);
+		scanf("%d", &ReservationData.CheckInDate.Day);
+		
+		printf("Check In Month		: ");
+		fflush(stdin);
+		scanf("%d", &ReservationData.CheckInDate.Month);
+		
+		printf("Check In Year		: ");
+		fflush(stdin);
+		scanf("%d", &ReservationData.CheckInDate.Year);
+		
+		printf("Check Out Day		: ");
+		fflush(stdin);
+		scanf("%d", &ReservationData.CheckOutDate.Day);
+		
+		printf("Check Out Month		: ");
+		fflush(stdin);
+		scanf("%d", &ReservationData.CheckOutDate.Month);
+		
+		printf("Check Out Year		: ");
+		fflush(stdin);
+		scanf("%d", &ReservationData.CheckOutDate.Year);
+		
+		ReservationData.LongStay = ReservationData.CheckOutDate.Day - ReservationData.CheckInDate.Day;
+		printf("\n\n");
+	  	printf("Long Stay      	: %i\n", ReservationData.LongStay);
+		
+		ReservationData.Total = ReservationData.RentRoomData.Price * ReservationData.RentRoomData.Quantity * ReservationData.LongStay;
 		printf("\n");
-		printf("Total			: Rp.%li",reservationdata.total);
+		printf("Total			: Rp.%li",ReservationData.Total);
 		
-		if(reservationdata.total >= 3000000)
+		if(ReservationData.Total >= 7500000)
 		{
-			reservationdata.discount = 0.3 * reservationdata.total;
+			ReservationData.Discount = 0.1 * ReservationData.Total;
+			printf("\n");
+			printf("Discount 10%		: Rp. %d\n", ReservationData.Discount);
 		} else {
-			reservationdata.discount = 0;
+			ReservationData.Discount = 0;
 		}
-		printf("\n");
-		printf("\n");
-		printf("Discount 30%		: Rp. %00.02f\n", reservationdata.discount);
-	  	reservationdata.grandtotal = reservationdata.total - reservationdata.discount;
-	  	printf("Grand Total      	: Rp. %li\n", reservationdata.grandtotal);
+
+		printf("\n\n");
+	  	ReservationData.GrandTotal = ReservationData.Total - ReservationData.Discount;
+	  	printf("Grand Total      	: Rp. %li\n", ReservationData.GrandTotal);
 		
 
-		reservationdata.datedata.day = now.tm_mday;
-		reservationdata.datedata.month = now.tm_mon + 1;
-		reservationdata.datedata.year = now.tm_year + 1900;
-		fwrite(&reservationdata, sizeof(reservationdata), 1, f_reservation);
-		printf("\r\nPinjam buku lagi? (Y/T)?");
+		ReservationData.ReservationDate.Day = now.tm_mday;
+		ReservationData.ReservationDate.Month = now.tm_mon + 1;
+		ReservationData.ReservationDate.Year = now.tm_year + 1900;
+		fwrite(&ReservationData, sizeof(ReservationData), 1, f_reservation);
+		
+		printf("Do you want to create more data? (Y/N) ");
+		
 		fflush(stdin);
 		more = getche();
-	}
-	while (more == 'Y' || more == 'y');
+	} while (more == 'Y' || more == 'y');
+	
 	fclose(f_reservation);
 	
-	printf("\r\nData Saved\r\n");
+	system("cls");
+	printf("The data is already stored in the file!!!\n");
+	printf("Press Any Key to continue . . .");
+	getche();
+	
+	system("cls");
 	ReservationMenu();
 }
 
-void ReservationData()
+void CountReservationData()
 {
 	FILE *f_reservation;
-	reservation reservationdata;
+	char line[255];
+	int count = 0;
 	
 	f_reservation = fopen("Reservation.DAT", "rt");
-	system("cls");
+	
     if (!f_reservation) 
     { 
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
@@ -189,16 +230,45 @@ void ReservationData()
 		system("cls");
 		ReservationMenu();
     } 
+	
+	while(fgets(line, 255, f_reservation))
+    {
+    	count++;
+	}
+	
+	printf("The amount of data available is %d", count);
+    printf("\n\n");
+    
+    fclose(f_reservation);
+}
 
+void ReservationData()
+{
+	FILE *f_reservation;
+	Reservation ReservationData;
+	
+	CountReservationData();
+    
     printf("|===================================================================================|\n");
     printf("|                                 Reservation Data                                  |\n");
     printf("|===================================================================================|\n");
     printf("| ID     Guest Name               Type            Total         Price               |\n");
     printf("|===================================================================================|\n");
+    
+    f_reservation = fopen("Reservation.DAT", "rt");
 	
-	while ((fread(&reservationdata, sizeof(reservationdata), JUM_BLOK, f_reservation)) == JUM_BLOK)
+    if (!f_reservation) 
+    { 
+        printf ("ERROR : Sorry file cannot be open!!!\n"); 
+        getch();
+		
+		system("cls");
+		ReservationMenu();
+    } 
+	
+	while ((fread(&ReservationData, sizeof(ReservationData), JUM_BLOK, f_reservation)) == JUM_BLOK)
 	{
-		printf("  %-7d %-20s %d %-15s %-12li %-20li\n", reservationdata.code, reservationdata.fullname, reservationdata.rentroomdata.code, reservationdata.rentroomdata.name, reservationdata.rentroomdata.price, reservationdata.grandtotal);
+		printf("  %-7d %-20s %d %-15s %-12li %-20li\n", ReservationData.ReservationCode, ReservationData.FullName, ReservationData.RentRoomData.Code, ReservationData.RentRoomData.Name, ReservationData.RentRoomData.Price, ReservationData.GrandTotal);
 	}
 	
 	printf("\n\n\n");
@@ -208,7 +278,8 @@ void ReservationData()
 
 void ReservationRead(){
 	
-	ReservationData();	
+	ReservationData();
+		
     printf("Press Any Key to continue . . .");
     getche();
     
@@ -216,21 +287,16 @@ void ReservationRead(){
     ReservationMenu();
 }
 
-void ReservationUpdate()
-{
-	
-}
-
-int CheckReservationCode(reservation reservationdata, int id)
+int CheckReservationCode(Reservation ReservationData, int id)
 {
 	int i = 1;
 	FILE *f_reservation;
 	
 	if(i == 1){
 		f_reservation = fopen("Reservation.DAT","rb");
-		while(fread(&reservationdata, sizeof(reservationdata), 1, f_reservation))
+		while(fread(&ReservationData, sizeof(ReservationData), 1, f_reservation))
 		{
-			if( id == reservationdata.code)
+			if( id == ReservationData.ReservationCode)
 			{
 				fclose(f_reservation);
 				return 1;
@@ -264,10 +330,10 @@ void ReservationDelete()
 	
     switch (menudelete) { 
         case 1:
-			AlertDeleteOneReservData();
+			AlertDeleteOneReservationData();
 			break;
 		case 2:
-			AlertDeleteAllReservData();
+			AlertDeleteAllReservationData();
 			break;
 		case 3:
 			ReservationMenu();
@@ -282,25 +348,25 @@ void ReservationDelete()
 			break;
     }
 }
-void AlertDeleteOneReservData()
+void AlertDeleteOneReservationData()
 {
-	reservation reservationdata;
-	char answer;
-	int code;
+	Reservation ReservationData;
+	char Answer;
+	int Code;
 	
 	printf("\n");
 	printf("Enter the Room Code to be deleted : ");
-	scanf("%d", &code);
+	scanf("%d", &Code);
 	fflush(stdin);
 	
 	printf("\n");
 	printf("Are you sure? (Y/N)");
-	answer = getche();
+	Answer = getche();
 	
-	if (answer == 'Y' || answer == 'y')
+	if (Answer == 'Y' || Answer == 'y')
 	{
 		system("cls");
-		DeleteOneReservData(reservationdata, code);
+		DeleteOneReservationData(ReservationData, Code);
 		
 		printf("Data successfully deleted!!!\n");
 		printf("Press Any Key to continue . . .");
@@ -314,34 +380,34 @@ void AlertDeleteOneReservData()
 	ReservationDelete();
 }
 
-void DeleteOneReservData(reservation reservationdata, int id)
+void DeleteOneReservationData(Reservation ReservationData, int ID)
 {
-	FILE *f_reservation, *f_temReserv;
-	int code, check;
+	FILE *f_reservation, *f_tempreservation;
+	int Code, Check;
 	
-	check = CheckReservationCode(reservationdata, id);
+	Check = CheckReservationCode(ReservationData, ID);
 		
-	if(check != 0)
+	if(Check != 0)
 	{
 		f_reservation = fopen("Reservation.DAT", "rb");
-		f_temReserv = fopen("TempReserv.DAT", "wb");
+		f_tempreservation = fopen("TempReservation.DAT", "wb");
 		
-		while (fread(&reservationdata, sizeof(reservationdata), 1, f_reservation))
+		while (fread(&ReservationData, sizeof(ReservationData), 1, f_reservation))
 		{
-			code = reservationdata.code;
-			if (code != id){
-				fwrite(&reservationdata, sizeof(reservationdata), 1, f_temReserv);
+			Code = ReservationData.ReservationCode;
+			if (Code != ID){
+				fwrite(&ReservationData, sizeof(ReservationData), 1, f_tempreservation);
 			}
 		}
 			
 		fclose(f_reservation);
-		fclose(f_temReserv);
+		fclose(f_tempreservation);
 			
 		remove("Reservation.DAT");
-    	rename("empReserv.DATT", "Room.DAT");
+    	rename("TempReservation.DAT", "Reservation.DAT");
 	} else{
 		system("cls");
-		printf("ERROR : Room data with code %d not found!!!\n", id);
+		printf("ERROR : Room data with code %d not found!!!\n", ID);
 		printf("Press Any Key to continue . . .");
 		getch();
 			
@@ -350,7 +416,7 @@ void DeleteOneReservData(reservation reservationdata, int id)
 	}
 }
 
-void AlertDeleteAllReservData()
+void AlertDeleteAllReservationData()
 {
 	char Answer;
 	
@@ -360,13 +426,13 @@ void AlertDeleteAllReservData()
 	if (Answer == 'Y' || Answer == 'y')
 	{
 		system("cls");
-		DeleteAllReservData();
+		DeleteAllReservationData();
 	}
 	system("cls");
 	ReservationDelete();
 }
 
-void DeleteAllReservData()
+void DeleteAllReservationData()
 {
 	FILE *f_reservation;
 

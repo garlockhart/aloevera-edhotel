@@ -9,42 +9,45 @@ Date			: 08/12/2001
 #define reservation_H
 
 typedef struct {
-	int code;
-	char name[20];
-	int quantity;
-	long int price;
-}rentroom;
+	int Code;
+	char Name[20];
+	int Quantity;
+	long int Price;
+}RentRoom;
 
 typedef struct{
-	int day;
-	int month;
-	int year;
-}date;
+	int Day;
+	int Month;
+	int Year;
+}Date;
 
 typedef struct {
-	int code;
-	long int nationalidentitynumber;
-	char fullname[40];
-	char email[60];
-	char gender[10];
-	int age;
-	rentroom rentroomdata;
-	date datedata;
-	long int total;
-	float discount;
-	long int grandtotal;
-}reservation; 
+	int ReservationCode;
+	char NIN[16];
+	char FullName[40];
+	char Email[60];
+	char Gender[10];
+	int Age;
+	RentRoom RentRoomData;
+	int LongStay;
+	Date CheckInDate;
+	Date CheckOutDate;
+	long int Total;
+	int Discount;
+	long int GrandTotal;
+	Date ReservationDate;
+}Reservation; 
 
 int ReservationMenu();
 void ReservationCreate();
+void CountReservationData();
 void ReservationData();
 void ReservationRead();
-void ReservationUpdate();
-int CheckReservationCode(reservation reservationdata, int id);
+int CheckReservationCode(Reservation ReservationData, int ID);
 void ReservationDelete();
-void AlertDeleteOneReservData();
-void DeleteOneReservData(reservation reservationdata, int id);
-void AlertDeleteAllReservData();
-void DeleteAllReservData();
+void AlertDeleteOneReservationData();
+void DeleteOneReservationData(Reservation ReservationData, int ID);
+void AlertDeleteAllReservationData();
+void DeleteAllReservationData();
 
 #endif

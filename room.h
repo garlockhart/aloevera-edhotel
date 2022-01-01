@@ -20,6 +20,7 @@ typedef struct {
 
 int RoomMenu();
 void RoomCreate();
+void CountRoomData();
 void RoomData();
 void RoomRead();
 void RoomUpdate();
