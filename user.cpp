@@ -118,9 +118,9 @@ void UserCreate()
 		fflush(stdin);
 		gets(userdata.password);
 		
-		printf("Role (Administrator/Operator) : ");
+		printf("Role (1/2) : ");
 		fflush(stdin);
-		gets(userdata.role);
+		scanf("%d",&userdata.role); 
 		
 		fflush(stdin);
 		userdata.status = 0;
@@ -169,7 +169,7 @@ void UserData()
 	
 	while ((fread(&userdata, sizeof(userdata), JUM_BLOK, f_user)) == JUM_BLOK)
 	{
-		printf("  %d %s %s %s %s %s %d\n", userdata.code, userdata.fullname, userdata.username, userdata.email, userdata.password, userdata.role, userdata.status);
+		printf("  %d %s %s %s %s %d %d\n", userdata.code, userdata.fullname, userdata.username, userdata.email, userdata.password, userdata.role, userdata.status);
 	}
 	
 	printf("\n\n\n");

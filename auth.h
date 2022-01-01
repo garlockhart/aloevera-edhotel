@@ -9,5 +9,6 @@ Date			: 30/12/2001
 #define auth_H
 
 int Login();
+int Logout();
 
 #endif

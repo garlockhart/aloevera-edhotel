@@ -37,13 +37,9 @@ int Welcome()
 	printf("|            WELCOME TO ALOEVERA EDHOTEL           |\n");
 	printf("|==================================================|\n");
 	printf("|1. Login                                          |\n");
-	printf("|2. Room                                           |\n");
-	printf("|3. Reservation                                    |\n");
-	printf("|4. User                                           |\n");
-	printf("|5. Report                                         |\n");	
-	printf("|6. About                                          |\n");
-	printf("|7. FAQ                                            |\n");
-	printf("|8. Exit                                           |\n");
+	printf("|2. About                                          |\n");
+	printf("|3. FAQ                                            |\n");
+	printf("|4. Exit                                           |\n");
 	printf("|==================================================|\n");
 	printf("|      Copyright 2021 - Develop by Nedersoft       |\n");
 	printf("|==================================================|\n");
@@ -59,24 +55,12 @@ int Welcome()
 			Login();
 			break;
 		case 2:
-			RoomMenu();
-			break;
-		case 3:
-			ReservationMenu();
-			break;			
-		case 4:
-			UserMenu();
-			break;
-		case 5:
-			ReportMenu();
-			break;
-		case 6:
 			About();
 			break;
-		case 7:
+		case 3:
 			FAQ();
 			break; 
-		case 8:
+		case 4:
 			printf("Are you sure? (Y/N)"); 
         	more = getche();
         	system("cls");
