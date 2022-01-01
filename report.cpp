@@ -1,5 +1,5 @@
 /*
-File Name		: reservation.cpp
+File Name		: report.cpp
 Description		: 
 Author			: Garly Nugraha & Nazwa Fitriyani Zahra
 Date			: 08/12/2001
@@ -18,8 +18,10 @@ Date			: 08/12/2001
 #include "report.h"
 /* ======= End of Header File ====== */
 
-void ReportMenu(){
-	int menu;
+void ReportMenu()
+{
+	int Menu;
+	
 	system("cls");
 	printf("|==================================|\n");
 	printf("|            Report Menu           |\n");
@@ -33,17 +35,17 @@ void ReportMenu(){
 	
 	printf("\n\n");
 	printf("Select Menu : ");
-	scanf("%d",&menu);
+	scanf("%d", &Menu);
 	
-	switch(menu){
+	switch(Menu){
 		case 1 :
-			ReservationReport_Day();
+			ReservationReportDay();
 			break;
 		case 2 :
-			ReservationReport_Month();
+			ReservationReportMonth();
 			break;
 		case 3 :
-			ReservationReport_Year();
+			ReservationReportYear();
 			break;
 		case 4 :
 			ReportShowAll();
@@ -60,168 +62,194 @@ void ReportMenu(){
 			ReportMenu();
 			break;
 	}
-	
 }
 
-void ReservationReport_Day(){
-	
-	int day, month, year;
+void ReservationReportDay()
+{
 	FILE *f_reservation;
 	Reservation ReservationData;
-	int check;
+	int Check, Day, Month, Year;
 	system("cls");
 	
 	printf("Insert Date :");
 	fflush(stdin);
-	scanf("%d", &day);
+	scanf("%d", &Day);
 	
 	printf("Insert Month :");
 	fflush(stdin);
-	scanf("%d", &month);
+	scanf("%d", &Month);
 	
 	printf("Insert Year :");
 	fflush(stdin);
-	scanf("%d", &year);
+	scanf("%d", &Year);
 	
 	f_reservation = fopen("Reservation.DAT","rb");
-	check = CheckReservationDate(ReservationData, day, month, year);
-	if(check != 0)
+	if (!f_reservation)
+	{
+		printf ("ERROR : Sorry file cannot be open!!!\n"); 
+        getch();
+		
+		system("cls");
+		ReportMenu();
+	}
+	
+	Check = CheckReservationDate(ReservationData, Day, Month, Year);
+	if(Check != 0){
+		while(fread(&ReservationData, sizeof(ReservationData),1, f_reservation))
 		{
-			while(fread(&ReservationData, sizeof(ReservationData),1, f_reservation))
+			if(Day == ReservationData.ReservationDate.Day && Month == ReservationData.ReservationDate.Month && Year == ReservationData.ReservationDate.Year)
 			{
-				if(day == ReservationData.ReservationDate.Day && month == ReservationData.ReservationDate.Month && year == ReservationData.ReservationDate.Year)
-				{
-					printf("\n\n");
-					printf("Report data on %d / %d / %d",ReservationData.ReservationDate.Day, ReservationData.ReservationDate.Month, ReservationData.ReservationDate.Year);
-					printf("\n");
-					printf("|===================================================================================|\n");
-    				printf("|                                 Reservation Data                                  |\n");
-   					printf("|===================================================================================|\n");
-    				printf("| ID     Guest Name               Type            Total         Price               |\n");
-    				printf("|===================================================================================|\n");
-					printf("  %-7d %-20s %d %-15s %-12li %-20li\n", ReservationData.ReservationCode, ReservationData.FullName, ReservationData.RentRoomData.Code, ReservationData.RentRoomData.Name, ReservationData.RentRoomData.Price, ReservationData.GrandTotal);
-					printf("\n\n\n");
-					printf("Press Any Key to continue . . .");
-					getch();
+				printf("\n\n");
+				printf("Report data on %d / %d / %d",ReservationData.ReservationDate.Day, ReservationData.ReservationDate.Month, ReservationData.ReservationDate.Year);
+				printf("\n");
+				printf("|===================================================================================|\n");
+    			printf("|                                 Reservation Data                                  |\n");
+   				printf("|===================================================================================|\n");
+    			printf("| ID     Guest Name               Type            Total         Price               |\n");
+    			printf("|===================================================================================|\n");
+				printf("  %-7d %-20s %d %-15s %-12li %-20li\n", ReservationData.ReservationCode, ReservationData.FullName, ReservationData.RentRoomData.Code, ReservationData.RentRoomData.Name, ReservationData.RentRoomData.Price, ReservationData.GrandTotal);
+				printf("\n\n\n");
+				printf("Press Any Key to continue . . .");
+				getch();
 		
-					system("cls");
-					fclose(f_reservation);
-					ReportMenu();
-				}
+				system("cls");
+				fclose(f_reservation);
+				ReportMenu();
 			}
-		
 		}
-	else{
-		printf("No data for this time period");
+		
+	} else{
+		printf("ERROR : No data for this time period");
 		system("cls");
 		fclose(f_reservation);
 		ReportMenu();
-		}
+	}
 }
 
 
-void ReservationReport_Month(){
-	
-	int day, month, year;
+void ReservationReportMonth()
+{
 	FILE *f_reservation;
 	Reservation ReservationData;
-	int check;
+	int Check, Day, Month, Year;
 	
 	system("cls");
 	printf("Insert Month :");
 	fflush(stdin);
-	scanf("%d", &month);
+	scanf("%d", &Month);
 	
 	printf("Insert Year :");
 	fflush(stdin);
-	scanf("%d", &year);
+	scanf("%d", &Year);
 	
 	f_reservation = fopen("Reservation.DAT","rb");
-	check = CheckReservationDate(ReservationData, day, month, year);
-	if(check != 0)
+	if (!f_reservation)
+	{
+		printf ("ERROR : Sorry file cannot be open!!!\n"); 
+        getch();
+		
+		system("cls");
+		ReportMenu();
+	}
+	
+	Check = CheckReservationDate(ReservationData, Day, Month, Year);
+	
+	if(Check != 0){
+		while(fread(&ReservationData, sizeof(ReservationData),1, f_reservation))
 		{
-			while(fread(&ReservationData, sizeof(ReservationData),1, f_reservation))
-			{
-				if(month == ReservationData.ReservationDate.Month && year == ReservationData.ReservationDate.Year)
-				{
-					printf("\n\n");					
-					printf("Report data on %d / %d",ReservationData.ReservationDate.Month, ReservationData.ReservationDate.Year);
-					printf("\n");
-					printf("|===================================================================================|\n");
-    				printf("|                                 Reservation Data                                  |\n");
-   					printf("|===================================================================================|\n");
-    				printf("| ID     Guest Name               Type            Total         Price               |\n");
-    				printf("|===================================================================================|\n");
-					printf("  %-7d %-20s %d %-15s %-12li %-20li\n", ReservationData.ReservationCode, ReservationData.FullName, ReservationData.RentRoomData.Code, ReservationData.RentRoomData.Name, ReservationData.RentRoomData.Price, ReservationData.GrandTotal);
-					printf("\n\n\n");
-					printf("Press Any Key to continue . . .");
-					getch();
+			if(Month == ReservationData.ReservationDate.Month && Year == ReservationData.ReservationDate.Year){
+				printf("\n\n");					
+				printf("Report data on %d / %d",ReservationData.ReservationDate.Month, ReservationData.ReservationDate.Year);
+				printf("\n");
+				printf("|===================================================================================|\n");
+    			printf("|                                 Reservation Data                                  |\n");
+   				printf("|===================================================================================|\n");
+    			printf("| ID     Guest Name               Type            Total         Price               |\n");
+    			printf("|===================================================================================|\n");
+				printf("  %-7d %-20s %d %-15s %-12li %-20li\n", ReservationData.ReservationCode, ReservationData.FullName, ReservationData.RentRoomData.Code, ReservationData.RentRoomData.Name, ReservationData.RentRoomData.Price, ReservationData.GrandTotal);
+				printf("\n\n\n");
+				printf("Press Any Key to continue . . .");
+				getch();
 		
-					system("cls");
-					fclose(f_reservation);
-					ReportMenu();
-				}
+				system("cls");
+				fclose(f_reservation);
+				ReportMenu();
 			}
-		
 		}
-	else{
-		printf("No data for this time period");
+	} else{
+		printf("ERROR : No data for this time period");
 		system("cls");
 		fclose(f_reservation);
 		ReportMenu();
-		}
+	}
 }
 
-void ReservationReport_Year(){
-	
-	int day, month, year;
+void ReservationReportYear()
+{	
 	FILE *f_reservation;
 	Reservation ReservationData;
-	int check;
+	int Check, Day, Month, Year;
 	
 	system("cls");
 	printf("Insert Year :");
 	fflush(stdin);
-	scanf("%d", &year);
+	scanf("%d", &Year);
 	
 	f_reservation = fopen("Reservation.DAT","rb");
-	check = CheckReservationDate(ReservationData, day, month, year);
-	if(check != 0)
+	if (!f_reservation)
+	{
+		printf ("ERROR : Sorry file cannot be open!!!\n"); 
+        getch();
+		
+		system("cls");
+		ReportMenu();
+	}
+	
+	Check = CheckReservationDate(ReservationData, Day, Month, Year);
+	
+	if(Check != 0){
+		while(fread(&ReservationData, sizeof(ReservationData),1, f_reservation))
 		{
-			while(fread(&ReservationData, sizeof(ReservationData),1, f_reservation))
-			{
-				if(year == ReservationData.ReservationDate.Year)
-				{
-					printf("\n\n");
-					printf("Report data on %d",ReservationData.ReservationDate.Year);
-					printf("\n");
-					printf("|===================================================================================|\n");
-    				printf("|                                 Reservation Data                                  |\n");
-   					printf("|===================================================================================|\n");
-    				printf("| ID     Guest Name               Type            Total         Price               |\n");
-    				printf("|===================================================================================|\n");
-					printf("  %-7d %-20s %d %-15s %-12li %-20li\n", ReservationData.ReservationCode, ReservationData.FullName, ReservationData.RentRoomData.Code, ReservationData.RentRoomData.Name, ReservationData.RentRoomData.Price, ReservationData.GrandTotal);
-					printf("\n\n\n");
-					printf("Press Any Key to continue . . .");
-					getch();
+			if(Year == ReservationData.ReservationDate.Year){
+				printf("\n\n");
+				printf("Report data on %d",ReservationData.ReservationDate.Year);
+				printf("\n");
+				printf("|===================================================================================|\n");
+    			printf("|                                 Reservation Data                                  |\n");
+   				printf("|===================================================================================|\n");
+    			printf("| ID     Guest Name               Type            Total         Price               |\n");
+    			printf("|===================================================================================|\n");
+				printf("  %-7d %-20s %d %-15s %-12li %-20li\n", ReservationData.ReservationCode, ReservationData.FullName, ReservationData.RentRoomData.Code, ReservationData.RentRoomData.Name, ReservationData.RentRoomData.Price, ReservationData.GrandTotal);
+				printf("\n\n\n");
+				printf("Press Any Key to continue . . .");
+				getch();
 		
-					system("cls");
-					fclose(f_reservation);
-					ReportMenu();
-				}
+				system("cls");
+				fclose(f_reservation);
+				ReportMenu();
 			}
-		
 		}
-	else{
-		printf("No data for this time period");
+	} else{
+		printf("ERROR : No data for this time period");
 		system("cls");
 		fclose(f_reservation);
 		ReportMenu();
-		}
+	}
 }
 
+void ReportShowAll()
+{
+	system("cls");
+	ReservationData();
+		
+    printf("Press Any Key to continue . . .");
+    getche();
+    
+    system("cls");
+    ReportMenu();
+}
 
-int CheckReservationDate(Reservation ReservationData, int day, int month, int year)
+int CheckReservationDate(Reservation ReservationData, int Day, int Month, int Year)
 {
 	int i = 1;
 	FILE *f_reservation;
@@ -230,7 +258,7 @@ int CheckReservationDate(Reservation ReservationData, int day, int month, int ye
 		f_reservation = fopen("Reservation.DAT","rb");
 		while(fread(&ReservationData, sizeof(ReservationData), 1, f_reservation))
 		{
-			if( day == ReservationData.ReservationDate.Day || month == ReservationData.ReservationDate.Month || year == ReservationData.ReservationDate.Year)
+			if(Day == ReservationData.ReservationDate.Day || Month == ReservationData.ReservationDate.Month || Year == ReservationData.ReservationDate.Year)
 			{
 				fclose(f_reservation);
 				return 1;
@@ -241,17 +269,4 @@ int CheckReservationDate(Reservation ReservationData, int day, int month, int ye
 		fclose(f_reservation);
 		return 0;
 	}
-}
-
-void ReportShowAll(){
-	system("cls");
-	printf("\t\t\t\tAll Reservation Data");
-	printf("\n\n");
-	ReservationData();
-		
-    printf("Press Any Key to continue . . .");
-    getche();
-    
-    system("cls");
-    ReportMenu();
 }

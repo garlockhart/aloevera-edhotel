@@ -9,10 +9,10 @@ Date			: 08/12/2001
 #define report_H
 
 void ReportMenu();
-void ReservationReport_Day();
-void ReservationReport_Month();
-void ReservationReport_Year();
+void ReservationReportDay();
+void ReservationReportMonth();
+void ReservationReportYear();
 void ReportShowAll();
-int CheckReservationDate(Reservation ReservationData, int day, int month, int year);
+int CheckReservationDate(Reservation ReservationData, int Day, int Month, int Year);
 
 #endif

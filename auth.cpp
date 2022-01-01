@@ -10,7 +10,9 @@ Date			: 30/12/2001
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
+#include <ctype.h>
 #include "auth.h"
+#include "user.h"
 /* ======= End of Header File ====== */
 
 int Login()
