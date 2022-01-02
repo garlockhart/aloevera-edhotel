@@ -25,14 +25,17 @@ int Login()
 	FILE *f_user, *f_tempuser;
 	int CompareUsername, ComparePassword;
 	
-	printf("Silahkan Login \n\n"); 
+	printf("|==================================|\n");
+	printf("|              Login               |\n");
+	printf("|==================================|\n");
+	
 
 	fflush(stdin);
-	printf("Username : "); 
+	printf("  Username : "); 
 	scanf("%[^\n]",&tempuserdata.username); 
 
 	fflush(stdin);
-	printf("Password : "); 
+	printf("  Password : "); 
 	scanf("%s",&tempuserdata.password); 
 
 	printf("\n");
