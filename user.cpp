@@ -161,15 +161,15 @@ void UserData()
 		UserMenu();
     } 
 
-    printf("|==================================================|\n");
-    printf("|                     User Data                    |\n");
-    printf("|==================================================|\n");
-    printf("| User ID      Full Name      Username     Email       Password     Role     Status|\n");
-    printf("|==================================================|\n");
+    printf("|===============================================================================================================================|\n");
+    printf("|                                                 User Data                                                                     |\n");
+    printf("|===============================================================================================================================|\n");
+    printf("| User ID         Full Name            Username                   mail                        Password         Role       Status|\n");
+    printf("|===============================================================================================================================|\n");
 	
 	while ((fread(&userdata, sizeof(userdata), JUM_BLOK, f_user)) == JUM_BLOK)
 	{
-		printf("  %d %s %s %s %s %d %d\n", userdata.code, userdata.fullname, userdata.username, userdata.email, userdata.password, userdata.role, userdata.status);
+		printf("     %-5d %-26s %-15s %-38s %-19s %-10d %-5d\n", userdata.code, userdata.fullname, userdata.username, userdata.email, userdata.password, userdata.role, userdata.status);
 	}
 	
 	printf("\n\n\n");
