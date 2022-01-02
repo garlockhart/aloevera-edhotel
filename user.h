@@ -25,7 +25,11 @@ void UserCreate();
 void UserData();
 void UserRead();
 void UserUpdate();
-int CheckUserCode(user userdata, int id);
+int CheckUserCode(user userdata, int ID);
 void UserDelete();
+void AlertDeleteOneUserData();
+void DeleteOneUserData(user userdata, int ID);
+void AlertDeleteAllUserData();
+void DeleteAllUserData();
 
 #endif

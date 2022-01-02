@@ -29,7 +29,7 @@ LeftChar=1
 [Editor_5]
 CursorCol=2
 CursorRow=36
-TopLine=18
+TopLine=6
 LeftChar=1
 [Editor_6]
 CursorCol=10
@@ -89,7 +89,7 @@ LeftChar=1
 [Editor_19]
 CursorCol=16
 CursorRow=53
-TopLine=56
+TopLine=48
 LeftChar=1
 [Editor_20]
 CursorCol=23
@@ -104,5 +104,10 @@ LeftChar=1
 [Editor_22]
 CursorCol=14
 CursorRow=11
+TopLine=1
+LeftChar=1
+[Editor_17]
+CursorCol=1
+CursorRow=1
 TopLine=1
 LeftChar=1

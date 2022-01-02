@@ -10,7 +10,7 @@ Date			: 08/12/2001
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
-#include "welcome.h"
+#include "administrator.h"
 #include "room.h"
 /* ======= End of Header File ====== */
 
@@ -47,7 +47,7 @@ int RoomMenu()
 			RoomDelete();
 			break;
 	 	case 5:
-			Welcome();
+			AdministratorMenu();
 			break;
 	 	default:
 	 		printf("ERROR : Sorry I don't know the answer to this one!!!");

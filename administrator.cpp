@@ -37,9 +37,8 @@ int AdministratorMenu()
 	printf("|==================================================|\n");
 	printf("|1. User                                           |\n");
 	printf("|2. Room                                           |\n");
-	printf("|3. Reservation                                    |\n");
-	printf("|4. Report                                         |\n");	
-	printf("|5. Logout                                         |\n");
+	printf("|3. Report                                         |\n");	
+	printf("|4. Logout                                         |\n");
 	printf("|==================================================|\n");
 	printf("|      Copyright 2021 - Develop by Nedersoft       |\n");
 	printf("|==================================================|\n");
@@ -58,21 +57,10 @@ int AdministratorMenu()
 			RoomMenu();
 			break;			
 		case 3:
-			ReservationMenu();
-			break;
-		case 4:
 			ReportMenu();
 			break;
-		case 5:
-			printf("Are you sure? (Y/N)"); 
-        	more = getche();
-        	system("cls");
-         
-	        if (menu == 'Y' || menu == 'y'){
-	        	system("cls");
-	        	Logout();
-			}
-			
+		case 4:
+	        Logout();
 			break;
 	 	default:
 	 		printf("ERROR : Sorry I don't know the answer to this one!!!\n");

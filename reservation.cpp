@@ -12,7 +12,7 @@ Date			: 08/12/2001
 #include <conio.h>
 #include <ctype.h>
 #include <time.h>
-#include "welcome.h"
+#include "concierge.h"
 #include "room.h"
 #include "reservation.h"
 #include "compare.h"
@@ -51,7 +51,7 @@ int ReservationMenu()
 			ReservationDelete();
 			break;
 		case 5:
-			Welcome();
+			ConciergeMenu();
 			break;
 	 	default:
 	 		printf("ERROR : Sorry I don't know the answer to this one!!!");

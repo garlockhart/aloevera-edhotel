@@ -35,8 +35,7 @@ int ConciergeMenu()
 	printf("|            WELCOME TO ALOEVERA EDHOTEL           |\n");
 	printf("|==================================================|\n");
 	printf("|1. Reservation                                    |\n");
-	printf("|2. Report                                         |\n");	
-	printf("|3. Logout                                         |\n");
+	printf("|2. Logout                                         |\n");
 	printf("|==================================================|\n");
 	printf("|      Copyright 2021 - Develop by Nedersoft       |\n");
 	printf("|==================================================|\n");
@@ -50,20 +49,9 @@ int ConciergeMenu()
 	switch (menu){
 		case 1:
 			ReservationMenu();
-			break;
+			break;		
 		case 2:
-			ReportMenu();
-			break;			
-		case 3:
-			printf("Are you sure? (Y/N)"); 
-        	more = getche();
-        	system("cls");
-         
-	        if (menu == 'Y' || menu == 'y'){
-	        	system("cls");
-	        	Logout();
-			}
-			
+			Logout();
 			break;
 	 	default:
 	 		printf("ERROR : Sorry I don't know the answer to this one!!!\n");

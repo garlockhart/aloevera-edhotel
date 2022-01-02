@@ -13,7 +13,7 @@ Date			: 08/12/2001
 #include <ctype.h>
 #include <time.h>
 #include "reservation.h"
-#include "welcome.h"
+#include "administrator.h"
 #include "room.h"
 #include "report.h"
 /* ======= End of Header File ====== */
@@ -52,7 +52,7 @@ void ReportMenu()
 			break;
 		case 5 :
 			system("cls");
-			Welcome();
+			AdministratorMenu();
 			break;
 		default :
 			printf("ERROR : Sorry I don't know the answer to this one!!!");
