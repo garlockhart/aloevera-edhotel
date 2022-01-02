@@ -30,7 +30,7 @@ int About(){
 	printf("   |\t\t\t\t\t\t\t\t\t|");
 	printf("\n");	
 	printf("   |\t    	  Copyright 2021 - Develop by Nedersoft      	 \t|");
-	printf("\n   |\t\t\t    By Kelompok B4 PTIK    \t\t\t|");
+	printf("\n   |\t\t\t    By Kelompok B4 DDP    \t\t\t|");
 	printf("\n   |\t\t\t\tGarly Nugraha\t\t\t\t|");
 	printf("\n   |\t\t\t   Nazwa Fitriyani Zahra\t\t\t|\n");
 	printf("   |\t\t\t\t\t\t\t\t\t|");

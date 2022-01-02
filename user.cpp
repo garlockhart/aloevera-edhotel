@@ -19,7 +19,7 @@ int UserMenu()
 	int menu;
 	
 	printf("|==================================|\n");
-	printf("|             Room Menu            |\n");
+	printf("|             User Menu            |\n");
 	printf("|==================================|\n");
 	printf("|1. Create                         |\n");
 	printf("|2. Read                           |\n");
@@ -82,10 +82,10 @@ void UserCreate()
     do {
     	system("cls");
     	printf("|=====================================|\n");
-		printf("|              Create Room            |\n");
+		printf("|              Create User            |\n");
 		printf("|=====================================|\n");
 	
-		printf("Code User : ");
+		printf("User Code : ");
 		fflush(stdin);
 		scanf("%d", &userdata.code);
 		
@@ -94,7 +94,7 @@ void UserCreate()
 		if(check != 0)
 		{
 			system("cls");
-			printf("ERROR : Room code has been used, please enter another code!!!\n");
+			printf("ERROR : User code has been used, please enter another code!!!\n");
 			printf("Press Any Key to continue . . .");
 			getch();
 			
@@ -195,7 +195,7 @@ void UserUpdate()
 	FILE *f_user, *f_tempuser;
 	
 	fflush(stdin);
-	printf("Enter the Room Code to be updated : ");
+	printf("Enter the User Code to be updated : ");
 	scanf("%d", &Code);
 	
 	printf("Full Name : ");
@@ -296,7 +296,7 @@ void UserDelete()
 	UserData();
 	
 	printf("|==================================|\n");
-	printf("|            Room Delete           |\n");
+	printf("|            User Delete           |\n");
 	printf("|==================================|\n");
 	printf("|1. One Record                     |\n");
 	printf("|2. All                            |\n");
@@ -336,7 +336,7 @@ void AlertDeleteOneUserData()
 	int Code;
 	
 	printf("\n");
-	printf("Enter the Room Code to be deleted : ");
+	printf("Enter the User Code to be deleted : ");
 	scanf("%d", &Code);
 	fflush(stdin);
 	
@@ -388,7 +388,7 @@ void DeleteOneUserData(user userdata, int ID)
     	rename("TempUser.DAT", "User.DAT");
 	} else{
 		system("cls");
-		printf("ERROR : Room data with code %d not found!!!\n", ID);
+		printf("ERROR : User data with code %d not found!!!\n", ID);
 		printf("Press Any Key to continue . . .");
 		getch();
 			

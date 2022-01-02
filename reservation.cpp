@@ -96,7 +96,7 @@ void ReservationCreate()
 		if(checkreservation != 0)
 		{
 			system("cls");
-			printf("ERROR : Reservation code has been used, please enter another code!!!\n");
+			printf("ERROR : Reservation Code has been used, please enter another code!!!\n");
 			printf("Press Any Key to continue . . .");
 			getch();
 			
@@ -510,7 +510,7 @@ void AlertDeleteOneReservationData()
 	int Code;
 	
 	printf("\n");
-	printf("Enter the Room Code to be deleted : ");
+	printf("Enter the Reservation Code to be deleted : ");
 	scanf("%d", &Code);
 	fflush(stdin);
 	
@@ -562,7 +562,7 @@ void DeleteOneReservationData(Reservation ReservationData, int ID)
     	rename("TempReservation.DAT", "Reservation.DAT");
 	} else{
 		system("cls");
-		printf("ERROR : Room data with code %d not found!!!\n", ID);
+		printf("ERROR : Reservation data with code %d not found!!!\n", ID);
 		printf("Press Any Key to continue . . .");
 		getch();
 			
