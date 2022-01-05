@@ -5,7 +5,7 @@
 
 Aloevera Edhotel merupakan sistem reservasi hotel yang bertujuan untuk mempermudah pemesanan kamar hotel agar lebih terstruktur. Sistem ini dibuat dengan bahasa pemprograman C.
 
-### 🧑 Dikembangkan oleh Kelompok 05 PTIK
+### 🧑 Dikembangkan oleh Kelompok 04 DDP
 
 - Garly Nugraha
 - Nazwa Fitriyani Zahra
