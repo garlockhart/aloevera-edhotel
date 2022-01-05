@@ -162,11 +162,11 @@ void UserData()
 		UserMenu();
     } 
 
-    printf("|===============================================================================================================================|\n");
-    printf("|                                                 User Data                                                                     |\n");
-    printf("|===============================================================================================================================|\n");
-    printf("| User ID         Full Name            Username                   mail                        Password         Role       Status|\n");
-    printf("|===============================================================================================================================|\n");
+    printf("|==========================================================================================================================================|\n");
+    printf("|                                                 User Data                                                                                |\n");
+    printf("|==========================================================================================================================================|\n");
+    printf("| User ID         Full Name            Username                   mail                        Password         Role            Status      |\n");
+    printf("|==========================================================================================================================================|\n");
 	
 	while ((fread(&userdata, sizeof(userdata), JUM_BLOK, f_user)) == JUM_BLOK)
 	{
@@ -184,7 +184,7 @@ void UserData()
 			strcpy(Status, "Logout");
 		}
 		
-		printf("     %-5d %-26s %-15s %-38s %-19s %-10s %-10s\n", userdata.code, userdata.fullname, userdata.username, userdata.email, userdata.password, Role, Status);
+		printf("     %-5d %-26s %-15s %-38s %-15s %-17s %-10s\n", userdata.code, userdata.fullname, userdata.username, userdata.email, userdata.password, Role, Status);
 	}
 	
 	printf("\n\n\n");
