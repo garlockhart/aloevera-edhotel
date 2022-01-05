@@ -10,6 +10,7 @@ Date			: 08/12/2001
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
+#include <ctype.h>
 #include "administrator.h"
 #include "user.h"
 /* ======= End of Header File ====== */
@@ -149,7 +150,7 @@ void UserData()
 {
 	FILE *f_user;
 	user userdata;
-	char statususer;
+	char Role[15], Status[7];
 	
 	f_user = fopen("User.DAT", "rt");
 	
@@ -169,7 +170,21 @@ void UserData()
 	
 	while ((fread(&userdata, sizeof(userdata), JUM_BLOK, f_user)) == JUM_BLOK)
 	{
-		printf("     %-5d %-26s %-15s %-38s %-19s %-10d %-5d\n", userdata.code, userdata.fullname, userdata.username, userdata.email, userdata.password, userdata.role, userdata.status);
+		if(userdata.role == 1){
+			strcpy(Role, "Administrator");
+		} else if(userdata.role == 2){
+			strcpy(Role, "Concierge");
+		} else{
+			strcpy(Role, "-");
+		}
+
+		if(userdata.status == 1){
+			strcpy(Status, "Login");
+		} else{
+			strcpy(Status, "Logout");
+		}
+		
+		printf("     %-5d %-26s %-15s %-38s %-19s %-10s %-10s\n", userdata.code, userdata.fullname, userdata.username, userdata.email, userdata.password, Role, Status);
 	}
 	
 	printf("\n\n\n");

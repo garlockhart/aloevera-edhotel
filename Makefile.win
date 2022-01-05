@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o welcome.o auth.o about.o faq.o room.o reservation.o user.o report.o compare.o administrator.o concierge.o
-LINKOBJ  = main.o welcome.o auth.o about.o faq.o room.o reservation.o user.o report.o compare.o administrator.o concierge.o
+OBJ      = main.o welcome.o auth.o about.o faq.o room.o reservation.o user.o report.o compare.o administrator.o concierge.o session.o
+LINKOBJ  = main.o welcome.o auth.o about.o faq.o room.o reservation.o user.o report.o compare.o administrator.o concierge.o session.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -59,3 +59,6 @@ administrator.o: administrator.cpp
 
 concierge.o: concierge.cpp
 	$(CPP) -c concierge.cpp -o concierge.o $(CXXFLAGS)
+
+session.o: session.cpp
+	$(CPP) -c session.cpp -o session.o $(CXXFLAGS)

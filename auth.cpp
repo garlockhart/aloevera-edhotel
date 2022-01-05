@@ -16,6 +16,7 @@ Date			: 30/12/2001
 #include "compare.h"
 #include "administrator.h"
 #include "concierge.h"
+#include "session.h"
 #include "welcome.h"
 /* ======= End of Header File ====== */
 
@@ -29,28 +30,42 @@ int Login()
 	printf("|              Login               |\n");
 	printf("|==================================|\n");
 	
+	printf("\n\n");
 
+	printf("Username : "); 
 	fflush(stdin);
-	printf("  Username : "); 
-	scanf("%[^\n]",&tempuserdata.username); 
+	scanf("%[^\n]", &tempuserdata.username); 
 
+	printf("Password : "); 
 	fflush(stdin);
-	printf("  Password : "); 
-	scanf("%s",&tempuserdata.password); 
+	scanf("%s", &tempuserdata.password); 
 
 	printf("\n");
 	fflush(stdin);
 	
-	if ((f_user=fopen("User.DAT", "rb"))==NULL)
+	f_user = fopen("User.DAT", "rb");
+	f_tempuser = fopen("TempUser.DAT", "wb");
+	
+	if (!f_user)
 	{
-		printf ("File tidak dapat dibuka\n"); 
-		exit(1);
+		printf ("ERROR : Sorry the file is unavailable!!!\n"); 
+		printf("Press Any Key to continue . . ."); 
+		
+		getch();
+			
+		system("cls");
+		Welcome(); 
 	}
 	
-	if ((f_tempuser=fopen("TempUser.DAT", "ab+"))==NULL)
+	if (!f_tempuser)
 	{
-		printf ("File tidak dapat dibuka\n"); 
-		exit(1);
+		printf ("ERROR : Sorry the file is unavailable!!!\n"); 
+		printf("Press Any Key to continue . . ."); 
+		
+		getch();
+			
+		system("cls");
+		Welcome(); 
 	}
 	
 	while (fread(&userdata, sizeof(userdata),1, f_user))
@@ -80,10 +95,16 @@ int Login()
 	if (tempuserdata.role == 1){
 		system("cls");
 		AdministratorMenu();
-	} else if(tempuserdata.role = 2){
+	} else if(tempuserdata.role == 2){
 		system("cls");
 		ConciergeMenu();
 	} else{
+		system("cls");
+		printf ("ERROR : Username or Password is incorrect!!!\n"); 
+		printf("Press Any Key to continue . . ."); 
+		
+		getch();
+			
 		system("cls");
 		Welcome();
 	}
@@ -91,6 +112,7 @@ int Login()
 
 int Logout()
 {
+	SessionDestroy();
 	printf ("Account successfully logout!!!\n"); 
     getch();
 		

@@ -415,45 +415,45 @@ void ReservationStatusUpdate()
 			TempReservationData.ReservationDate.Month = ReservationData.ReservationDate.Month;
 			TempReservationData.ReservationDate.Year = ReservationData.ReservationDate.Year;
 			strcpy(TempReservationData.Status,Status);
-			
-			while (fread(&roomdata, sizeof(roomdata), 1, f_room))
-			{
-				if(TempReservationData.RentRoomData.Code == roomdata.code){
-					temproomdata.code = roomdata.code;
-					strcpy(temproomdata.name,roomdata.name);
-					strcpy(temproomdata.type,roomdata.type);
-					
-					strcpy(StatusCheckOut,"Check Out");
-
-					Compare = StringCompare(Status,StatusCheckOut);
-					if (Compare == 0){
-						temproomdata.total = roomdata.total + TempReservationData.RentRoomData.Quantity;
-					} else {
-						temproomdata.total = roomdata.total;
-					}
-					
-					temproomdata.price = roomdata.price;
-					fwrite(&temproomdata, sizeof(temproomdata),1,f_temproom);
-				}  else {
-					fwrite(&roomdata, sizeof(roomdata),1,f_temproom);
-				}
-			}
 	
-			fwrite(&TempReservationData, sizeof(TempReservationData),1,f_tempreservation);
+			fwrite(&TempReservationData, sizeof(TempReservationData), 1, f_tempreservation);
 		}  else {
-			fwrite(&ReservationData, sizeof(ReservationData),1,f_tempreservation);
+			fwrite(&ReservationData, sizeof(ReservationData), 1, f_tempreservation);
 		}
 	}
 	
-	fclose(f_room);
-	fclose(f_reservation);
-	fclose(f_temproom);
-	fclose(f_tempreservation);
+	while (fread(&roomdata, sizeof(roomdata), 1, f_room))
+	{
+		if(TempReservationData.RentRoomData.Code == roomdata.code){
+			temproomdata.code = roomdata.code;
+			strcpy(temproomdata.name,roomdata.name);
+			strcpy(temproomdata.type,roomdata.type);
+					
+			strcpy(StatusCheckOut, "Check Out");
 
-	remove("Room.DAT");
+			Compare = StringCompare(Status,StatusCheckOut);
+			if (Compare == 0){
+				temproomdata.total = roomdata.total + TempReservationData.RentRoomData.Quantity;
+			} else {
+				temproomdata.total = roomdata.total;
+			}
+					
+			temproomdata.price = roomdata.price;
+			fwrite(&temproomdata, sizeof(temproomdata), 1, f_temproom);
+		}  else {
+			fwrite(&roomdata, sizeof(roomdata), 1, f_temproom);
+		}
+	}
+	
+	fclose(f_reservation);
+	fclose(f_room);
+	fclose(f_tempreservation);
+	fclose(f_temproom);
+
 	remove("Reservation.DAT");
-	rename("TempRoom.DAT", "Room.DAT");
+	remove("Room.DAT");
 	rename("TempReservation.DAT", "Reservation.DAT");
+	rename("TempRoom.DAT", "Room.DAT");
 	
 	system("cls");
 	printf("Data successfully updated!!!\n");

@@ -17,8 +17,8 @@ D3 – JTK Polban - Tahun Ajaran 2021/2022
 		iv. Penutup (maksimum 1 menit)
 	c. Video yang dibuat digabung dalam satu video dan diupload dalam youtube pribadi yang dapat diakses oleh pengguna umum.	
 3. Semakin banyak fitur yang terdapat di aplikasi maka nilai akan semakin tinggi.
-4. Aplikasi (berupa source code, file .exe dan file pendukung lainnya) dikumpulkan selambat nya tanggal Januari 2022
-5. Video sudah diupload dalam channel youtube selambatnya tanggal Januari 2022
+4. Aplikasi (berupa source code, file .exe dan file pendukung lainnya) dikumpulkan selambat nya tanggal 07 Januari 2022
+5. Video sudah diupload dalam channel youtube selambatnya tanggal 02 Januari 2022
 
 
 Berikut dilampirkan link video yang telah masing-masing kelompok upload ke youtube.

@@ -24,7 +24,7 @@ Date			: 08/12/2001
 int Welcome()
 {
 	time_t t;
-	int menu, more;
+	int Menu, Answer;
 	struct tm now;
 	
 	t = time(NULL);
@@ -47,10 +47,10 @@ int Welcome()
     printf("\n\n");
     
     printf("Select Menu : ");
-	scanf("%d", &menu);
+	scanf("%d", &Menu);
 	system("cls");
 	
-	switch (menu){
+	switch (Menu){
 		case 1:
 			Login();
 			break;
@@ -62,10 +62,10 @@ int Welcome()
 			break; 
 		case 4:
 			printf("Are you sure? (Y/N)"); 
-        	more = getche();
+        	Answer = getche();
         	system("cls");
          
-	        if (menu == 'Y' || menu == 'y'){
+	        if (Answer == 'Y' || Answer == 'y'){
 	        	system("cls");
 	        	exit(1);
 			}
