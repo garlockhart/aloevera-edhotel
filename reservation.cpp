@@ -65,7 +65,7 @@ int ReservationMenu()
 
 void ReservationCreate()
 {
-	FILE *f_reservation, *f_room, *f_temproom;;
+	FILE *f_reservation, *f_room, *f_temproom;
 	Reservation ReservationData;
 	room roomdata, temproomdata;
 	int roomcode, checkreservation, checkroom, more;
