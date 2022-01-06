@@ -5,9 +5,26 @@
 
 Aloevera Edhotel merupakan sistem reservasi hotel yang bertujuan untuk mempermudah pemesanan kamar hotel agar lebih terstruktur. Sistem ini dibuat dengan bahasa pemprograman C.
 
-### 🧑 Dikembangkan oleh Kelompok 04 DDP
+### 🤨 Fitur apa saja yang tersedia di Aloevera Edhotel?
+- Authentification (Login & Logout)
+- CRUD (Create, Read, Update, Delete) User
+- CRUD (Create, Read, Update, Delete) Room
+- CRUD (Create, Read, Update, Delete) Reservation
+- Report
 
-- Garly Nugraha
-- Nazwa Fitriyani Zahra
+### 💻 Install
+- Clone Repositori
+```bash
+git clone https://github.com/garlockhart/aloevera-edhotel.git
+cd project_name
+```
 
-<p align="center"><b>Copyright © 2021 - JTK POLBAN</b></p>
+### 🧑 Author
+👤 **Garly Nugraha**
+- Instagram : <a href="https://www.instagram.com/garlockhart/">@garlockhart</a>
+- Twitter : <a href="https://twitter.com/garlockhart/">@garlockhart</a>
+
+👤 **Nazwa Fitriyani Zahra**
+- Instagram : <a href="https://www.instagram.com/nazwafitriyanizz/">@nazwafitriyanizz</a>
+
+<p align="center"><b>Made with ❤️ Garly Nugraha & Nazwa Fitriyani Zahra</b></p>
