@@ -123,14 +123,14 @@ void ReservationCreate()
 		printf("Age			: ");
 		fflush(stdin);
 		scanf("%d", &ReservationData.Age);
-		
-		printf("Number of rooms booked	: ");
-		fflush(stdin);
-		scanf("%d", &ReservationData.RentRoomData.Quantity);
 				
 		printf("Room code		: ");
 		fflush(stdin);
 		scanf("%d", &roomcode);
+		
+		printf("Number of rooms booked	: ");
+		fflush(stdin);
+		scanf("%d", &ReservationData.RentRoomData.Quantity);
 		
 		checkroom = CheckRoomCode(roomdata, roomcode);
 		if(checkroom != 0)
@@ -146,6 +146,17 @@ void ReservationCreate()
 					temproomdata.code = roomdata.code;
 					strcpy(temproomdata.name,roomdata.name);
 					strcpy(temproomdata.type,roomdata.type);
+					
+					if(ReservationData.RentRoomData.Quantity > roomdata.total){
+						system("cls");
+						printf("ERROR : The number of rooms available is only %d rooms.!!!\n", roomdata.total);
+						printf("Press Any Key to continue . . .");
+						getch();
+						
+						system("cls");
+						ReservationCreate();
+					}
+					
 					temproomdata.total = roomdata.total - ReservationData.RentRoomData.Quantity;
 					temproomdata.price = roomdata.price;
 					fwrite(&temproomdata, sizeof(temproomdata),1,f_temproom);
