@@ -1,7 +1,6 @@
 Tugas Besar Praktikum
 Mata Kuliah : Dasar-Dasar Pemrograman
 D3 – JTK Polban - Tahun Ajaran 2021/2022
-
 1. Tugas dikerjakan secara berkelompok (terdiri dari 2 orang)
 2. Tugas Besar ini terdiri 
 	a. Membuat program dalam Bahasa C / C++, dimana program yang dibuat harus terdapat penggunaan:

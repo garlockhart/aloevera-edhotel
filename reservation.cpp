@@ -27,7 +27,7 @@ int ReservationMenu()
 	printf("|==================================|\n");
 	printf("|1. Create                         |\n");
 	printf("|2. Read                           |\n");
-	printf("|3. Status                         |\n");
+	printf("|3. Update                         |\n");
 	printf("|4. Delete                         |\n");
 	printf("|5. Back                           |\n");
 	printf("|==================================|\n");
@@ -37,7 +37,7 @@ int ReservationMenu()
 	scanf("%d", &menu);
 	system("cls");
 	
-    switch (menu) { 
+    switch (menu) {
         case 1:
 			ReservationCreate();
 			break;
@@ -45,7 +45,7 @@ int ReservationMenu()
 			ReservationRead();
 			break;
 		case 3:
-			ReservationStatusUpdate();
+			ReservationUpdate();
 			break;
 	 	case 4:
 			ReservationDelete();
@@ -343,7 +343,43 @@ int CheckReservationCode(Reservation ReservationData, int id)
 	}
 }
 
-void ReservationStatusUpdate()
+void ReservationUpdate()
+{
+	int MenuUpdate;
+	system("cls");
+	ReservationData();
+	
+	printf("|==================================|\n");
+	printf("|        Reservation Update        |\n");
+	printf("|==================================|\n");
+	printf("|1. Update Status                  |\n");
+	printf("|2. Back                           |\n");
+	printf("|==================================|\n");
+	
+    printf("\n");
+    printf("Select Menu : ");
+	scanf("%d", &MenuUpdate);
+	system("cls");
+	
+    switch (MenuUpdate) { 
+        case 1:
+			UpdateReservationStatus();
+			break;
+		case 2:
+			ReservationMenu();
+			break;
+	 	default:
+	 		printf("ERROR : Sorry I don't know the answer to this one!!!\n");
+	 		printf("Press Any Key to continue . . .");
+			getch();
+			
+			system("cls");
+			ReservationUpdate();
+			break;
+    }
+}
+
+void UpdateReservationStatus()
 {
 	int Code, Compare;
 	char Status[15], StatusCheckOut[15];
@@ -370,7 +406,7 @@ void ReservationStatusUpdate()
         getch();
 		
 		system("cls");
-		ReservationMenu();
+		ReservationUpdate();
     } 
     
     if (!f_room) 
@@ -379,7 +415,7 @@ void ReservationStatusUpdate()
         getch();
 		
 		system("cls");
-		ReservationMenu();
+		ReservationUpdate();
     } 
     
     if (!f_temproom) 
@@ -388,7 +424,7 @@ void ReservationStatusUpdate()
         getch();
 		
 		system("cls");
-		ReservationMenu();
+		ReservationUpdate();
     }
     
     if (!f_tempreservation) 
@@ -397,7 +433,7 @@ void ReservationStatusUpdate()
         getch();
 		
 		system("cls");
-		ReservationMenu();
+		ReservationUpdate();
     }
     
     while (fread(&ReservationData, sizeof(ReservationData),1, f_reservation))
@@ -472,7 +508,7 @@ void ReservationStatusUpdate()
 	getch();
 	
 	system("cls");
-	ReservationMenu();
+	ReservationUpdate();
 }
 
 void ReservationDelete()
