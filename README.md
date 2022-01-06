@@ -30,4 +30,6 @@ cd aloevera-edhotel
 👤 **Nazwa Fitriyani Zahra**
 - Instagram : <a href="https://www.instagram.com/nazwafitriyanizz/">@nazwafitriyanizz</a>
 
+------------
+
 <p align="center"><b>Made with ❤️ Garly Nugraha & Nazwa Fitriyani Zahra</b></p>
