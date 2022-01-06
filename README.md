@@ -16,7 +16,9 @@ Aloevera Edhotel merupakan sistem reservasi hotel yang bertujuan untuk mempermud
 - Clone Repositori
 ```bash
 git clone https://github.com/garlockhart/aloevera-edhotel.git
-cd project_name
+```
+```bash
+cd aloevera-edhotel
 ```
 
 ### 🧑 Author
