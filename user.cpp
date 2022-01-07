@@ -15,9 +15,9 @@ Date			: 08/12/2001
 #include "user.h"
 /* ======= End of Header File ====== */
 	
-int UserMenu()
+int MenuUser()
 {
-	int menu;
+	int Menu;
 	
 	printf("|==================================|\n");
 	printf("|             User Menu            |\n");
@@ -31,21 +31,21 @@ int UserMenu()
     
     printf("\n\n");
     printf("Select Menu : ");
-	scanf("%d", &menu);
+	scanf("%d", &Menu);
 	system("cls");
 	
-    switch (menu) { 
+    switch (Menu) { 
         case 1:
-			UserCreate();
+			CreateUser();
 			break;
 		case 2:
-			UserRead();
+			ReadUser();
 			break;
 		case 3:
-			UserUpdate();
+			UpdateUser();
 			break; 
 		case 4:
-			UserDelete();
+			DeleteUser();
 			break;
 	 	case 5:
 			AdministratorMenu();
@@ -55,16 +55,16 @@ int UserMenu()
 	 		getch();
 	 		
 	 		system("cls");
-			UserMenu();
+			MenuUser();
 			break;
     }
 }
 
-void UserCreate()
+void CreateUser()
 {
-	char more;
-	int check;
-	user userdata;
+	char More;
+	int Check;
+	User UserData;
     FILE *f_user;
 	
 	f_user = fopen("User.DAT", "ab+");
@@ -77,7 +77,7 @@ void UserCreate()
 		getch();
 			
 		system("cls");
-		UserMenu(); 
+		MenuUser(); 
     }
     
     do {
@@ -88,11 +88,11 @@ void UserCreate()
 	
 		printf("User Code : ");
 		fflush(stdin);
-		scanf("%d", &userdata.code);
+		scanf("%d", &UserData.Code);
 		
-		check = CheckUserCode(userdata, userdata.code);
+		Check = CheckUserCode(UserData, UserData.Code);
 		
-		if(check != 0)
+		if(Check != 0)
 		{
 			system("cls");
 			printf("ERROR : User code has been used, please enter another code!!!\n");
@@ -100,40 +100,40 @@ void UserCreate()
 			getch();
 			
 			system("cls");
-			UserCreate();
+			CreateUser();
 		}
 		
 		printf("Full Name : ");
 		fflush(stdin);
-		scanf("%[^\n]",&userdata.fullname); 
+		scanf("%[^\n]",&UserData.FullName); 
 		
 		printf("Username : ");
 		fflush(stdin);
-		gets(userdata.username);
+		gets(UserData.Username);
 		
 		printf("Email : ");
 		fflush(stdin);
-		gets(userdata.email);
+		gets(UserData.Email);
 		
 		printf("Password : ");
 		fflush(stdin);
-		gets(userdata.password);
+		gets(UserData.Password);
 		
 		printf("Role (1/2) : ");
 		fflush(stdin);
-		scanf("%d",&userdata.role); 
+		scanf("%d", &UserData.Role); 
 		
 		fflush(stdin);
-		userdata.status = 0;
+		UserData.Status = 0;
 		
-		fwrite(&userdata, sizeof(userdata), 1, f_user);
+		fwrite(&UserData, sizeof(UserData), 1, f_user);
 		
 		printf("\n");
 		printf("Do you want to create more data? (Y/N) ");
 		fflush(stdin);
 		
-		more = getche();
-	} while (more == 'Y' || more == 'y');
+		More = getche();
+	} while (More == 'Y' || More == 'y');
 	
 	fclose(f_user);
 	
@@ -143,13 +143,13 @@ void UserCreate()
 	getche();
 	
 	system("cls");
-	UserMenu();
+	MenuUser();
 }
 
-void UserData()
+void ShowUser()
 {
 	FILE *f_user;
-	user userdata;
+	User UserData;
 	char Role[15], Status[7];
 	
 	f_user = fopen("User.DAT", "rt");
@@ -159,7 +159,7 @@ void UserData()
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
 			
-		UserMenu();
+		MenuUser();
     } 
 
     printf("|==========================================================================================================================================|\n");
@@ -168,23 +168,23 @@ void UserData()
     printf("| User ID         Full Name            Username                   mail                        Password         Role            Status      |\n");
     printf("|==========================================================================================================================================|\n");
 	
-	while ((fread(&userdata, sizeof(userdata), JUM_BLOK, f_user)) == JUM_BLOK)
+	while ((fread(&UserData, sizeof(UserData), JUM_BLOK, f_user)) == JUM_BLOK)
 	{
-		if(userdata.role == 1){
+		if(UserData.Role == 1){
 			strcpy(Role, "Administrator");
-		} else if(userdata.role == 2){
+		} else if(UserData.Role == 2){
 			strcpy(Role, "Concierge");
 		} else{
 			strcpy(Role, "-");
 		}
 
-		if(userdata.status == 1){
+		if(UserData.Status == 1){
 			strcpy(Status, "Login");
 		} else{
 			strcpy(Status, "Logout");
 		}
 		
-		printf("     %-5d %-26s %-15s %-38s %-15s %-17s %-10s\n", userdata.code, userdata.fullname, userdata.username, userdata.email, userdata.password, Role, Status);
+		printf("     %-5d %-26s %-15s %-38s %-15s %-17s %-10s\n", UserData.Code, UserData.FullName, UserData.Username, UserData.Email, UserData.Password, Role, Status);
 	}
 	
 	printf("\n\n\n");
@@ -192,21 +192,21 @@ void UserData()
 	fclose(f_user);
 }
 
-void UserRead() 
+void ReadUser() 
 {
-	UserData();
+	ShowUser();
 	
     printf("Press Any Key to continue . . .");
     getche();
     
     system("cls");
-    UserMenu();
+    MenuUser();
 } 
 
-void UserUpdate()
+void UpdateUser()
 {
 	int Code;
-	user userdata, tempuserdata;
+	User UserData, TempUserData;
 	FILE *f_user, *f_tempuser;
 	
 	fflush(stdin);
@@ -215,26 +215,26 @@ void UserUpdate()
 	
 	printf("Full Name : ");
 	fflush(stdin);
-	scanf("%[^\n]",&tempuserdata.fullname);
+	scanf("%[^\n]", &TempUserData.FullName);
 	
 	printf("Username : ");
 	fflush(stdin);
-	gets(tempuserdata.username);
+	gets(TempUserData.Username);
 		
 	printf("Email : ");
 	fflush(stdin);
-	gets(tempuserdata.email);
+	gets(TempUserData.Email);
 		
 	printf("Password : ");
 	fflush(stdin);
-	gets(tempuserdata.password);
+	gets(TempUserData.Password);
 		
 	printf("Role (1/2) : ");
 	fflush(stdin);
-	scanf("%d", &tempuserdata.role);
+	scanf("%d", &TempUserData.Role);
 
 	fflush(stdin);
-	tempuserdata.status = 0;
+	TempUserData.Status = 0;
 	
 	f_user = fopen("User.DAT", "rb");
 	f_tempuser = fopen("TempUser.DAT", "wb");
@@ -245,7 +245,7 @@ void UserUpdate()
         getch();
 		
 		system("cls");
-		UserMenu();
+		MenuUser();
     } 
     
     if (!f_tempuser) 
@@ -254,16 +254,16 @@ void UserUpdate()
         getch();
 		
 		system("cls");
-		UserMenu();
+		MenuUser();
     }
 	
-	while (fread(&userdata, sizeof(userdata),1, f_user))
+	while (fread(&UserData, sizeof(UserData),1, f_user))
 	{
-		if(Code == userdata.code){
-			tempuserdata.code = userdata.code;
-			fwrite(&tempuserdata, sizeof(tempuserdata),1,f_tempuser);
+		if(Code == UserData.Code){
+			TempUserData.Code = UserData.Code;
+			fwrite(&TempUserData, sizeof(TempUserData), 1, f_tempuser);
 		}  else {
-			fwrite(&userdata, sizeof(userdata),1,f_tempuser);
+			fwrite(&UserData, sizeof(UserData), 1, f_tempuser);
 		}
 	}
 	
@@ -279,17 +279,17 @@ void UserUpdate()
 	getch();
 	
 	system("cls");
-	UserMenu();
+	MenuUser();
 }
 
-int CheckUserCode(user userdata, int ID)
+int CheckUserCode(User UserData, int ID)
 {
 	FILE *f_user;
 	
 	f_user = fopen("User.DAT","rb");
-	while(fread(&userdata, sizeof(userdata), 1, f_user))
+	while(fread(&UserData, sizeof(UserData), 1, f_user))
 	{
-		if(ID == userdata.code)
+		if(ID == UserData.Code)
 		{
 			fclose(f_user);
 			return 1;
@@ -297,11 +297,11 @@ int CheckUserCode(user userdata, int ID)
 	}
 }
 
-void UserDelete()
+void DeleteUser()
 {
 	int MenuDelete;
 	
-	UserData();
+	ShowUser();
 	
 	printf("|==================================|\n");
 	printf("|            User Delete           |\n");
@@ -318,13 +318,13 @@ void UserDelete()
 	
     switch (MenuDelete) { 
         case 1:
-			AlertDeleteOneUserData();
+			AlertDeleteOneRecordUser();
 			break;
 		case 2:
-			AlertDeleteAllUserData();
+			AlertDeleteAllUser();
 			break;
 		case 3:
-			UserMenu();
+			MenuUser();
 			break;
 	 	default:
 	 		printf("ERROR : Sorry I don't know the answer to this one!!!\n");
@@ -332,14 +332,14 @@ void UserDelete()
 			getch();
 			
 			system("cls");
-			UserDelete();
+			DeleteUser();
 			break;
     }
 }
 
-void AlertDeleteOneUserData()
+void AlertDeleteOneRecordUser()
 {
-	user userdata;
+	User UserData;
 	char Answer;
 	int Code;
 	
@@ -355,37 +355,37 @@ void AlertDeleteOneUserData()
 	if (Answer == 'Y' || Answer == 'y')
 	{
 		system("cls");
-		DeleteOneUserData(userdata, Code);
+		DeleteOneRecordUser(UserData, Code);
 		
 		printf("Data successfully deleted!!!\n");
 		printf("Press Any Key to continue . . .");
 		getch();
 		
 		system("cls");
-		UserDelete();
+		DeleteUser();
 	}
 	
 	system("cls");
-	UserDelete();
+	DeleteUser();
 }
 
-void DeleteOneUserData(user userdata, int ID)
+void DeleteOneRecordUser(User UserData, int ID)
 {
 	FILE *f_user, *f_tempuser;
 	int Code, Check;
 	
-	Check = CheckUserCode(userdata, ID);
+	Check = CheckUserCode(UserData, ID);
 		
 	if(Check != 0)
 	{
 		f_user = fopen("User.DAT", "rb");
 		f_tempuser = fopen("TempUser.DAT", "wb");
 		
-		while (fread(&userdata, sizeof(userdata), 1, f_user))
+		while (fread(&UserData, sizeof(UserData), 1, f_user))
 		{
-			Code = userdata.code;
+			Code = UserData.Code;
 			if (Code != ID){
-				fwrite(&userdata, sizeof(userdata), 1, f_tempuser);
+				fwrite(&UserData, sizeof(UserData), 1, f_tempuser);
 			}
 		}
 			
@@ -401,11 +401,11 @@ void DeleteOneUserData(user userdata, int ID)
 		getch();
 			
 		system("cls");
-		UserCreate();
+		AlertDeleteOneRecordUser();
 	}
 }
 
-void AlertDeleteAllUserData()
+void AlertDeleteAllUser()
 {
 	char Answer;
 	
@@ -415,13 +415,13 @@ void AlertDeleteAllUserData()
 	if (Answer == 'Y' || Answer == 'y')
 	{
 		system("cls");
-		DeleteAllUserData();
+		DeleteAllUser();
 	}
 	system("cls");
-	UserDelete();
+	DeleteUser();
 }
 
-void DeleteAllUserData()
+void DeleteAllUser()
 {
 	FILE *f_user;
 
@@ -433,5 +433,5 @@ void DeleteAllUserData()
 	getch();
 			
 	system("cls");
-	UserDelete();
+	DeleteUser();
 }
