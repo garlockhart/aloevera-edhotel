@@ -288,23 +288,16 @@ void RoomUpdate()
 
 int CheckRoomCode(room roomdata, int id)
 {
-	int i = 1;
 	FILE *f_room;
 	
-	if(i == 1){
-		f_room = fopen("Room.DAT","rb");
-		while(fread(&roomdata, sizeof(roomdata), 1, f_room))
+	f_room = fopen("Room.DAT","rb");
+	while(fread(&roomdata, sizeof(roomdata), 1, f_room))
+	{
+		if(id == roomdata.code)
 		{
-			if(id == roomdata.code)
-			{
-				fclose(f_room);
-				return 1;
-			}
+			fclose(f_room);
+			return 1;
 		}
-	} else{
-		i = 0;
-		fclose(f_room);
-		return 0;
 	}
 }
 

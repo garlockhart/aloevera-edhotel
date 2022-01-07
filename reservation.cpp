@@ -323,23 +323,16 @@ void ReservationRead(){
 
 int CheckReservationCode(Reservation ReservationData, int id)
 {
-	int i = 1;
 	FILE *f_reservation;
 	
-	if(i == 1){
-		f_reservation = fopen("Reservation.DAT","rb");
-		while(fread(&ReservationData, sizeof(ReservationData), 1, f_reservation))
+	f_reservation = fopen("Reservation.DAT","rb");
+	while(fread(&ReservationData, sizeof(ReservationData), 1, f_reservation))
+	{
+		if( id == ReservationData.ReservationCode)
 		{
-			if( id == ReservationData.ReservationCode)
-			{
-				fclose(f_reservation);
-				return 1;
-			}
+			fclose(f_reservation);
+			return 1;
 		}
-	} else{
-		i = 0;
-		fclose(f_reservation);
-		return 0;
 	}
 }
 

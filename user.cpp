@@ -284,23 +284,16 @@ void UserUpdate()
 
 int CheckUserCode(user userdata, int ID)
 {
-	int i = 1;
 	FILE *f_user;
 	
-	if(i == 1){
-		f_user = fopen("User.DAT","rb");
-		while(fread(&userdata, sizeof(userdata), 1, f_user))
+	f_user = fopen("User.DAT","rb");
+	while(fread(&userdata, sizeof(userdata), 1, f_user))
+	{
+		if(ID == userdata.code)
 		{
-			if(ID == userdata.code)
-			{
-				fclose(f_user);
-				return 1;
-			}
+			fclose(f_user);
+			return 1;
 		}
-	} else{
-		i = 0;
-		fclose(f_user);
-		return 0;
 	}
 }
 
