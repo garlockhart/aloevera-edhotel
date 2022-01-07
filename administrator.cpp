@@ -51,10 +51,10 @@ int AdministratorMenu()
 	
 	switch (menu){
 		case 1:
-			UserMenu();
+			MenuUser();
 			break;
 		case 2:
-			RoomMenu();
+			MenuRoom();
 			break;			
 		case 3:
 			ReportMenu();
