@@ -18,11 +18,12 @@ Date			: 30/12/2001
 #include "concierge.h"
 #include "session.h"
 #include "welcome.h"
+#include "hidden.h"
 /* ======= End of Header File ====== */
 
 int Login()
 {
-	user userdata, tempuserdata;
+	User UserData, TempUserData;
 	FILE *f_user, *f_tempuser;
 	int CompareUsername, ComparePassword;
 	
@@ -34,11 +35,11 @@ int Login()
 
 	printf("Username : "); 
 	fflush(stdin);
-	scanf("%[^\n]", &tempuserdata.username); 
+	scanf("%[^\n]", &TempUserData.Username); 
 
 	printf("Password : "); 
 	fflush(stdin);
-	scanf("%s", &tempuserdata.password); 
+	HiddenPassword(TempUserData.Password); 
 
 	printf("\n");
 	fflush(stdin);
@@ -68,21 +69,21 @@ int Login()
 		Welcome(); 
 	}
 	
-	while (fread(&userdata, sizeof(userdata),1, f_user))
+	while (fread(&UserData, sizeof(UserData), 1, f_user))
 	{
-		CompareUsername = StringCompare(userdata.username,tempuserdata.username);  
-		ComparePassword = StringCompare(userdata.password,tempuserdata.password); 
+		CompareUsername = StringCompare(UserData.Username, TempUserData.Username);  
+		ComparePassword = StringCompare(UserData.Password, TempUserData.Password); 
 		if((CompareUsername == 0) && (ComparePassword == 0)){
-			tempuserdata.code = userdata.code;
-			strcpy(tempuserdata.fullname,userdata.fullname);
-			strcpy(tempuserdata.email,userdata.email);
-			tempuserdata.role = userdata.role;
-			tempuserdata.status = 1;
+			TempUserData.Code = UserData.Code;
+			strcpy(TempUserData.FullName, UserData.FullName);
+			strcpy(TempUserData.Email, UserData.Email);
+			TempUserData.Role = UserData.Role;
+			TempUserData.Status = 1;
 			
-			fwrite(&tempuserdata, sizeof(tempuserdata),1,f_tempuser);  
+			fwrite(&TempUserData, sizeof(TempUserData), 1, f_tempuser);  
 		}  
 		else {
-			fwrite(&userdata, sizeof(userdata),1,f_tempuser);  
+			fwrite(&UserData, sizeof(UserData), 1, f_tempuser);  
 		}
 	}
 	
@@ -92,10 +93,10 @@ int Login()
 	remove("User.DAT");
 	rename("TempUser.DAT", "User.DAT");
 	
-	if (tempuserdata.role == 1){
+	if (TempUserData.Role == 1){
 		system("cls");
 		AdministratorMenu();
-	} else if(tempuserdata.role == 2){
+	} else if(TempUserData.Role == 2){
 		system("cls");
 		ConciergeMenu();
 	} else{

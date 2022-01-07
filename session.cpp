@@ -17,7 +17,7 @@ Date			: 05/01/2022
 
 int SessionDestroy()
 {
-	user userdata, tempuserdata;
+	User UserData, TempUserData;
 	FILE *f_user, *f_tempuser;
 	
 	f_user = fopen("User.DAT", "rb");
@@ -45,21 +45,21 @@ int SessionDestroy()
 		exit(1); 
 	}
 	
-	while (fread(&userdata, sizeof(userdata),1, f_user))
+	while (fread(&UserData, sizeof(UserData),1, f_user))
 	{
-		if(userdata.status == 1){
-			tempuserdata.code = userdata.code;
-			strcpy(tempuserdata.fullname,userdata.fullname);
-			strcpy(tempuserdata.email,userdata.email);
-			strcpy(tempuserdata.username,userdata.username);
-			strcpy(tempuserdata.password,userdata.password);
-			tempuserdata.role = userdata.role;
-			tempuserdata.status = 0;
+		if(UserData.Status == 1){
+			TempUserData.Code = UserData.Code;
+			strcpy(TempUserData.FullName, UserData.FullName);
+			strcpy(TempUserData.Email, UserData.Email);
+			strcpy(TempUserData.Username, UserData.Username);
+			strcpy(TempUserData.Password, UserData.Password);
+			TempUserData.Role = UserData.Role;
+			TempUserData.Status = 0;
 
-			fwrite(&tempuserdata, sizeof(tempuserdata), 1, f_tempuser);  
+			fwrite(&TempUserData, sizeof(TempUserData), 1, f_tempuser);  
 		}
 		else {
-			fwrite(&userdata, sizeof(userdata), 1, f_tempuser);  
+			fwrite(&UserData, sizeof(UserData), 1, f_tempuser);  
 		}
 	}
 	
