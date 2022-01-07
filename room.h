@@ -14,21 +14,21 @@ typedef struct {
     int code; 
     char name[20]; 
     char type[15];
-    int total;
-    long int price;
+    unsigned int total;
+    unsigned long int price;
 }room;  
 
-int RoomMenu();
-void RoomCreate();
-void CountRoomData();
-void RoomData();
-void RoomRead();
-void RoomUpdate();
+int MenuRoom();
+void CreateRoom();
+void CountRoom();
+void ShowRoom();
+void ReadRoom();
+void UpdateRoom();
 int CheckRoomCode(room roomdata, int id);
-void RoomDelete();
-void AlertDeleteOneRoomData();
-void DeleteOneRoomData(room roomdata, int id);
-void AlertDeleteAllRoomData();
-void DeleteAllRoomData();
+void DeleteRoom();
+void AlertDeleteOneRecordRoom();
+void DeleteOneRecordRoom(room roomdata, int id);
+void AlertDeleteAllRoom();
+void DeleteAllRoom();
 
 #endif

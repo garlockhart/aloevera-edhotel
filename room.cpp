@@ -12,11 +12,12 @@ Date			: 08/12/2001
 #include <conio.h>
 #include "administrator.h"
 #include "room.h"
+#include "validation.h"
 /* ======= End of Header File ====== */
 
-int RoomMenu()
+int MenuRoom()
 {
-	int menu;
+	int Menu;
 	
 	printf("|==================================|\n");
 	printf("|             Room Menu            |\n");
@@ -30,21 +31,21 @@ int RoomMenu()
     
     printf("\n\n");
     printf("Select Menu : ");
-	scanf("%d", &menu);
+	scanf("%d", &Menu);
 	system("cls");
 	
-    switch (menu) { 
+    switch (Menu) { 
         case 1:
-			RoomCreate();
+			CreateRoom();
 			break;
 		case 2:
-			RoomRead();
+			ReadRoom();
 			break;
 		case 3:
-			RoomUpdate();
+			UpdateRoom();
 			break; 
 		case 4:
-			RoomDelete();
+			DeleteRoom();
 			break;
 	 	case 5:
 			AdministratorMenu();
@@ -54,15 +55,15 @@ int RoomMenu()
 	 		getch();
 	 		
 	 		system("cls");
-			RoomMenu();
+			MenuRoom();
 			break;
     }
 }
 
-void RoomCreate()
+void CreateRoom()
 {
-	char more;
-	int check;
+	char More;
+	int CheckCode, CheckTotalRoom;
 	room roomdata;
     FILE *f_room;
 	
@@ -76,7 +77,7 @@ void RoomCreate()
 		getch();
 			
 		system("cls");
-		RoomMenu(); 
+		MenuRoom(); 
     }
     
     do {
@@ -89,9 +90,9 @@ void RoomCreate()
 		fflush(stdin);
 		scanf("%d", &roomdata.code);
 		
-		check = CheckRoomCode(roomdata, roomdata.code);
+		CheckCode = CheckRoomCode(roomdata, roomdata.code);
 		
-		if(check != 0)
+		if(CheckCode != 0)
 		{
 			system("cls");
 			printf("ERROR : Room code has been used, please enter another code!!!\n");
@@ -99,7 +100,7 @@ void RoomCreate()
 			getch();
 			
 			system("cls");
-			RoomCreate();
+			CreateRoom();
 		}
 		
 		printf("Name : ");
@@ -110,9 +111,22 @@ void RoomCreate()
 		fflush(stdin);
 		gets(roomdata.type);
 		
-		printf("Total : ");
+		printf("Total Room : ");
 		fflush(stdin);
 		scanf("%d", &roomdata.total);
+		
+		CheckTotalRoom = ValidationNumbers(roomdata.total);
+		
+		if(CheckTotalRoom == 0)
+		{
+			system("cls");
+			printf("ERROR : The total room should not be negative!!!\n");
+			printf("Press Any Key to continue . . .");
+			getch();
+			
+			system("cls");
+			CreateRoom();
+		}
 		
 		printf("Price : ");
 		fflush(stdin);
@@ -124,8 +138,8 @@ void RoomCreate()
 		printf("Do you want to create more data? (Y/N) ");
 		fflush(stdin);
 		
-		more = getche();
-	} while (more == 'Y' || more == 'y');
+		More = getche();
+	} while (More == 'Y' || More == 'y');
 	
 	fclose(f_room);
 	
@@ -135,10 +149,10 @@ void RoomCreate()
 	getche();
 	
 	system("cls");
-	RoomMenu();
+	MenuRoom();
 }
 
-void CountRoomData()
+void CountRoom()
 {
 	FILE *f_room;
 	char line[255];
@@ -152,7 +166,7 @@ void CountRoomData()
         getch();
 		
 		system("cls");
-		RoomMenu();
+		MenuRoom();
     } 
 	
 	while(fgets(line, 255, f_room))
@@ -166,12 +180,12 @@ void CountRoomData()
     fclose(f_room);
 }
 
-void RoomData()
+void ShowRoom()
 {
 	FILE *f_room;
 	room roomdata;
     
-    CountRoomData();
+    CountRoom();
 
     printf("|==================================================|\n");
     printf("|                     Room Data                    |\n");
@@ -187,7 +201,7 @@ void RoomData()
         getch();
 		
 		system("cls");
-		RoomMenu();
+		MenuRoom();
     } 
 	
 	while ((fread(&roomdata, sizeof(roomdata), JUM_BLOK, f_room)) == JUM_BLOK)
@@ -200,26 +214,28 @@ void RoomData()
 	fclose(f_room);
 }
 
-void RoomRead() 
+void ReadRoom() 
 {
-	RoomData();
+	ShowRoom();
 	
     printf("Press Any Key to continue . . .");
     getche();
     
     system("cls");
-    RoomMenu();
+    MenuRoom();
 } 
 
-void RoomUpdate()
+void UpdateRoom()
 {
-	int code;
+	int code, CheckTotalRoom;
 	room roomdata, temproomdata;
 	FILE *f_room, *f_temproom;
 	
 	fflush(stdin);
 	printf("Enter the Room Code to be updated : ");
 	scanf("%d", &code);
+	
+	
 	
 	printf("Name : ");
 	fflush(stdin);
@@ -229,9 +245,22 @@ void RoomUpdate()
 	fflush(stdin);
 	gets(temproomdata.type);
 		
-	printf("Total : ");
+	printf("Total Room : ");
 	fflush(stdin);
 	scanf("%d", &temproomdata.total);
+	
+	CheckTotalRoom = ValidationNumbers(temproomdata.total);
+		
+	if(CheckTotalRoom == 0)
+	{
+		system("cls");
+		printf("ERROR : The total room should not be negative!!!\n");
+		printf("Press Any Key to continue . . .");
+		getch();
+			
+		system("cls");
+		UpdateRoom();
+	}
 		
 	printf("Price : ");
 	fflush(stdin);
@@ -249,7 +278,7 @@ void RoomUpdate()
         getch();
 		
 		system("cls");
-		RoomMenu();
+		MenuRoom();
     } 
     
     if (!f_temproom) 
@@ -258,7 +287,7 @@ void RoomUpdate()
         getch();
 		
 		system("cls");
-		RoomMenu();
+		MenuRoom();
     }
 	
 	while (fread(&roomdata, sizeof(roomdata),1, f_room))
@@ -283,7 +312,7 @@ void RoomUpdate()
 	getch();
 	
 	system("cls");
-	RoomMenu();
+	MenuRoom();
 }
 
 int CheckRoomCode(room roomdata, int id)
@@ -301,11 +330,11 @@ int CheckRoomCode(room roomdata, int id)
 	}
 }
 
-void RoomDelete()
+void DeleteRoom()
 {
 	int menudelete;
 	
-	RoomData();
+	ShowRoom();
 	
 	printf("|==================================|\n");
 	printf("|            Room Delete           |\n");
@@ -322,13 +351,13 @@ void RoomDelete()
 	
     switch (menudelete) { 
         case 1:
-			AlertDeleteOneRoomData();
+			AlertDeleteOneRecordRoom();
 			break;
 		case 2:
-			AlertDeleteAllRoomData();
+			AlertDeleteAllRoom();
 			break;
 		case 3:
-			RoomMenu();
+			MenuRoom();
 			break;
 	 	default:
 	 		printf("ERROR : Sorry I don't know the answer to this one!!!\n");
@@ -336,12 +365,12 @@ void RoomDelete()
 			getch();
 			
 			system("cls");
-			RoomDelete();
+			DeleteRoom();
 			break;
     }
 }
 
-void AlertDeleteOneRoomData()
+void AlertDeleteOneRecordRoom()
 {
 	room roomdata;
 	char answer;
@@ -359,21 +388,21 @@ void AlertDeleteOneRoomData()
 	if (answer == 'Y' || answer == 'y')
 	{
 		system("cls");
-		DeleteOneRoomData(roomdata, code);
+		DeleteOneRecordRoom(roomdata, code);
 		
 		printf("Data successfully deleted!!!\n");
 		printf("Press Any Key to continue . . .");
 		getch();
 		
 		system("cls");
-		RoomDelete();
+		DeleteRoom();
 	}
 	
 	system("cls");
-	RoomDelete();
+	DeleteRoom();
 }
 
-void DeleteOneRoomData(room roomdata, int id)
+void DeleteOneRecordRoom(room roomdata, int id)
 {
 	FILE *f_room, *f_temproom;
 	int code, check;
@@ -405,11 +434,11 @@ void DeleteOneRoomData(room roomdata, int id)
 		getch();
 			
 		system("cls");
-		RoomCreate();
+		DeleteRoom();
 	}
 }
 
-void AlertDeleteAllRoomData()
+void AlertDeleteAllRoom()
 {
 	char Answer;
 	
@@ -419,13 +448,13 @@ void AlertDeleteAllRoomData()
 	if (Answer == 'Y' || Answer == 'y')
 	{
 		system("cls");
-		DeleteAllRoomData();
+		DeleteAllRoom();
 	}
 	system("cls");
-	RoomDelete();
+	DeleteRoom();
 }
 
-void DeleteAllRoomData()
+void DeleteAllRoom()
 {
 	FILE *RoomData;
 
@@ -437,5 +466,5 @@ void DeleteAllRoomData()
 	getch();
 			
 	system("cls");
-	RoomDelete();
+	DeleteRoom();
 }
