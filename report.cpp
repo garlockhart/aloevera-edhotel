@@ -71,15 +71,16 @@ void ReservationReportDay()
 	int Check, Day, Month, Year;
 	system("cls");
 	
-	printf("Insert Date :");
+	
+	printf("Insert Date (*Ex : 1 - 31) :");
 	fflush(stdin);
 	scanf("%d", &Day);
 	
-	printf("Insert Month :");
+	printf("Insert Month (*Ex : 1 - 12):");
 	fflush(stdin);
 	scanf("%d", &Month);
 	
-	printf("Insert Year :");
+	printf("Insert Year (*Ex : 2022):");
 	fflush(stdin);
 	scanf("%d", &Year);
 	
@@ -134,11 +135,11 @@ void ReservationReportMonth()
 	int Check, Day, Month, Year;
 	
 	system("cls");
-	printf("Insert Month :");
+	printf("Insert Month (*Ex : 1 - 12):");
 	fflush(stdin);
 	scanf("%d", &Month);
 	
-	printf("Insert Year :");
+	printf("Insert Year (*Ex : 2022):");
 	fflush(stdin);
 	scanf("%d", &Year);
 	
@@ -191,7 +192,7 @@ void ReservationReportYear()
 	int Check, Day, Month, Year;
 	
 	system("cls");
-	printf("Insert Year :");
+	printf("Insert Year (*Ex : 2022):");
 	fflush(stdin);
 	scanf("%d", &Year);
 	
