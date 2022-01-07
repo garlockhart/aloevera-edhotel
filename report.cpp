@@ -76,11 +76,11 @@ void ReservationReportDay()
 	fflush(stdin);
 	scanf("%d", &Day);
 	
-	printf("Insert Month (*Ex : 1 - 12):");
+	printf("Insert Month (*Ex : 1 - 12) :");
 	fflush(stdin);
 	scanf("%d", &Month);
 	
-	printf("Insert Year (*Ex : 2022):");
+	printf("Insert Year (*Ex : 2022) :");
 	fflush(stdin);
 	scanf("%d", &Year);
 	

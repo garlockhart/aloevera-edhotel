@@ -177,27 +177,27 @@ void ReservationCreate()
 		printf("Type of the room	: %s \n", ReservationData.RentRoomData.Name);
 		printf("The price of the room	: %li \n", ReservationData.RentRoomData.Price);
 		
-		printf("Check In Day		: ");
+		printf("Check In Day (*Ex : 1 - 31)	: ");
 		fflush(stdin);
 		scanf("%d", &ReservationData.CheckInDate.Day);
 		
-		printf("Check In Month		: ");
+		printf("Check In Month (*Ex : 1 - 12)	: ");
 		fflush(stdin);
 		scanf("%d", &ReservationData.CheckInDate.Month);
 		
-		printf("Check In Year		: ");
+		printf("Check In Year (*Ex : 2022)	: ");
 		fflush(stdin);
 		scanf("%d", &ReservationData.CheckInDate.Year);
 		
-		printf("Check Out Day		: ");
+		printf("Check Out Day (*Ex : 1 - 31)	: ");
 		fflush(stdin);
 		scanf("%d", &ReservationData.CheckOutDate.Day);
 		
-		printf("Check Out Month		: ");
+		printf("Check Out Month (*Ex : 1 - 12)	: ");
 		fflush(stdin);
 		scanf("%d", &ReservationData.CheckOutDate.Month);
 		
-		printf("Check Out Year		: ");
+		printf("Check Out Year (*Ex : 2022)	: ");
 		fflush(stdin);
 		scanf("%d", &ReservationData.CheckOutDate.Year);
 		
