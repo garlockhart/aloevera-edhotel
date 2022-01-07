@@ -149,7 +149,7 @@ void ReservationCreate()
 					
 					if(ReservationData.RentRoomData.Quantity > roomdata.total){
 						system("cls");
-						printf("ERROR : The number of rooms available is only %d rooms.!!!\n", roomdata.total);
+						printf("ERROR : The number of rooms available is only %d rooms!!!\n", roomdata.total);
 						printf("Press Any Key to continue . . .");
 						getch();
 						
@@ -171,7 +171,13 @@ void ReservationCreate()
 			remove("Room.DAT");
 			rename("TempRoom.DAT", "Room.DAT");
 		} else {
-			
+			system("cls");
+			printf("ERROR : The room code you entered is not available!!!\n");
+			printf("Press Any Key to continue . . .");
+			getch();
+					
+			system("cls");
+			ReservationCreate();
 		}
 		
 		printf("Type of the room	: %s \n", ReservationData.RentRoomData.Name);
