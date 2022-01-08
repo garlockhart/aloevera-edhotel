@@ -16,6 +16,7 @@ Date			: 08/12/2001
 #include "room.h"
 #include "reservation.h"
 #include "compare.h"
+#include "validation.h"
 /* ======= End of Header File ====== */
 
 int ReservationMenu()
@@ -68,7 +69,7 @@ void ReservationCreate()
 	FILE *f_reservation, *f_room, *f_temproom;
 	Reservation ReservationData;
 	room roomdata, temproomdata;
-	int roomcode, checkreservation, checkroom, more;
+	int roomcode, checkreservation, checkroom, more, checklongstay, checkage;
 	time_t t;
 	struct tm now;
 	
@@ -123,6 +124,17 @@ void ReservationCreate()
 		printf("Age			: ");
 		fflush(stdin);
 		scanf("%d", &ReservationData.Age);
+		checkage = ValidationNumbers(ReservationData.Age);
+		if(checkage != 1){
+			system("cls");
+			printf("ERROR : Please Input The Valid age");
+			printf("\n");
+			printf("Press Any Key to continue . . .");
+			getch();
+						
+			system("cls");
+			ReservationCreate();
+		}
 				
 		printf("Room code		: ");
 		fflush(stdin);
@@ -207,7 +219,19 @@ void ReservationCreate()
 		fflush(stdin);
 		scanf("%d", &ReservationData.CheckOutDate.Year);
 		
-		ReservationData.LongStay = ReservationData.CheckOutDate.Day - ReservationData.CheckInDate.Day;
+		ReservationData.LongStay = ((ReservationData.CheckOutDate.Year - ReservationData.CheckInDate.Year) * 365) + ((ReservationData.CheckOutDate.Month - ReservationData.CheckInDate.Month) * 30) + (ReservationData.CheckOutDate.Day - ReservationData.CheckInDate.Day);
+		checklongstay = ValidationNumbers(ReservationData.LongStay);
+		if(checklongstay != 1){
+			system("cls");
+			printf("ERROR : Input Valid Check-In or Check-Out Date");
+			printf("\n");
+			printf("Press Any Key to continue . . .");
+			getch();
+						
+			system("cls");
+			ReservationCreate();
+		}
+//		((Tahun Check Out - Tahun Check In) * 365 + (Bulan Check Out - Bulan Check In) * 30 + (Hari Check Out - Hari Check In)
 		printf("\n\n");
 	  	printf("Long Stay      	: %i\n", ReservationData.LongStay);
 		
