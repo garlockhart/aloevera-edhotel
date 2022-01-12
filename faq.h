@@ -8,6 +8,7 @@ Date			: 08/12/2001
 #ifndef faq_H
 #define faq_H
 
+/* FAQ */
 int FAQ();
 
 #endif

@@ -74,6 +74,8 @@ int FAQ(){
 	getche();
 	
 	system("cls");
+	
+	/* Call Modul Welcome */
 	Welcome();
 }
 	

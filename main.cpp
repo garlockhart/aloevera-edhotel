@@ -11,6 +11,7 @@ Date			: 08/12/2001
 
 int main()
 {
+	/* Call Modul Welcome */
     Welcome();
 
     return 0;

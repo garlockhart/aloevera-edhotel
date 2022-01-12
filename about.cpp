@@ -39,6 +39,8 @@ int About(){
 	getche();
 	
 	system("cls");
+	
+	/* Call Modul Welcome */
 	Welcome();
 }
 

@@ -10,6 +10,7 @@ Date			: 08/12/2001
 
 #define JUM_BLOK 1
 
+/* Struct User */
 typedef struct {
 	int Code;
 	char FullName[40];
@@ -20,12 +21,25 @@ typedef struct {
 	int Status;
 } User;
 
+/* Menu User */
 int MenuUser();
+
+/* Create Data User */
 void CreateUser();
+
+/* Show Data User */
 void ShowUser();
+
+/* Read Data User */
 void ReadUser();
+
+/* Update Data User */
 void UpdateUser();
+
+/* Check Data User by Code */
 int CheckUserCode(User UserData, int ID);
+
+/* Delete Data User */
 void DeleteUser();
 void AlertDeleteOneRecordUser();
 void DeleteOneRecordUser(User UserData, int ID);

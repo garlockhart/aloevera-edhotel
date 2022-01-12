@@ -48,9 +48,11 @@ int ConciergeMenu()
 	
 	switch (menu){
 		case 1:
+			/* Call Modul Menu Reservation */
 			ReservationMenu();
 			break;		
 		case 2:
+			/* Call Modul Logout */
 			Logout();
 			break;
 	 	default:
@@ -59,6 +61,8 @@ int ConciergeMenu()
 	 		getche();
 	 		
 	 		system("cls");
+	 		
+	 		/* Call Modul Menu Concierge */
 			ConciergeMenu();
 			break;
 	}

@@ -36,18 +36,23 @@ int MenuUser()
 	
     switch (Menu) { 
         case 1:
+        	/* Call Modul Create Data User */
 			CreateUser();
 			break;
 		case 2:
+			/* Call Modul Read Data User */
 			ReadUser();
 			break;
 		case 3:
+			/* Call Modul Update Data User */
 			UpdateUser();
 			break; 
 		case 4:
+			/* Call Modul Delete Data User */
 			DeleteUser();
 			break;
 	 	case 5:
+	 		/* Call Modul Menu Administrator */
 			AdministratorMenu();
 			break;
 	 	default:
@@ -55,6 +60,8 @@ int MenuUser()
 	 		getch();
 	 		
 	 		system("cls");
+	 		
+	 		/* Call Modul Menu User */
 			MenuUser();
 			break;
     }
@@ -67,8 +74,10 @@ void CreateUser()
 	User UserData;
     FILE *f_user;
 	
+	/* Open File */
 	f_user = fopen("User.DAT", "ab+");
-
+	
+	/* Erro Handle About Open File */
     if (!f_user) 
     { 
         printf ("ERROR : Sorry the file is unavailable!!!\n");
@@ -135,6 +144,7 @@ void CreateUser()
 		More = getche();
 	} while (More == 'Y' || More == 'y');
 	
+	/* Close File */
 	fclose(f_user);
 	
 	system("cls");
@@ -143,6 +153,8 @@ void CreateUser()
 	getche();
 	
 	system("cls");
+	
+	/* Call Modul Menu User */
 	MenuUser();
 }
 
@@ -152,13 +164,16 @@ void ShowUser()
 	User UserData;
 	char Role[15], Status[7];
 	
+	/* Open File */
 	f_user = fopen("User.DAT", "rt");
 	
+	/* Error Handle About Open File */
     if (!f_user) 
     { 
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
-			
+		
+		/* Call Modul Menu User */
 		MenuUser();
     } 
 
@@ -189,17 +204,21 @@ void ShowUser()
 	
 	printf("\n\n\n");
 	
+	/* Close User */
 	fclose(f_user);
 }
 
 void ReadUser() 
 {
+	/* Call Modul Show Data User */
 	ShowUser();
 	
     printf("Press Any Key to continue . . .");
     getche();
     
     system("cls");
+    
+    /* Call Modul Menu User */
     MenuUser();
 } 
 
@@ -236,9 +255,11 @@ void UpdateUser()
 	fflush(stdin);
 	TempUserData.Status = 0;
 	
+	/* Open File */
 	f_user = fopen("User.DAT", "rb");
 	f_tempuser = fopen("TempUser.DAT", "wb");
 	
+	/* Error Handle About Open File */
 	if (!f_user) 
     { 
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
@@ -248,6 +269,7 @@ void UpdateUser()
 		MenuUser();
     } 
     
+    /* Error Handle About Open File */
     if (!f_tempuser) 
     { 
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
@@ -267,10 +289,14 @@ void UpdateUser()
 		}
 	}
 	
+	/* Close File */
 	fclose(f_user);
 	fclose(f_tempuser);
-
+	
+	/* Remove File */
 	remove("User.DAT");
+	
+	/* Rename File */
 	rename("TempUser.DAT", "User.DAT");
 	
 	system("cls");
@@ -279,6 +305,8 @@ void UpdateUser()
 	getch();
 	
 	system("cls");
+	
+	/* Call Modul Menu User */
 	MenuUser();
 }
 
@@ -286,11 +314,13 @@ int CheckUserCode(User UserData, int ID)
 {
 	FILE *f_user;
 	
+	/* Open File */
 	f_user = fopen("User.DAT","rb");
 	while(fread(&UserData, sizeof(UserData), 1, f_user))
 	{
 		if(ID == UserData.Code)
 		{
+			/* Close File */
 			fclose(f_user);
 			return 1;
 		}
@@ -301,6 +331,7 @@ void DeleteUser()
 {
 	int MenuDelete;
 	
+	/* Call Modul Show Data User */
 	ShowUser();
 	
 	printf("|==================================|\n");
@@ -318,12 +349,15 @@ void DeleteUser()
 	
     switch (MenuDelete) { 
         case 1:
+        	/* Call Modul Alert Delete One Record Data User */
 			AlertDeleteOneRecordUser();
 			break;
 		case 2:
+			/* Call Modul Alert Delete All Data User */
 			AlertDeleteAllUser();
 			break;
 		case 3:
+			/* Call Modul Menu User */
 			MenuUser();
 			break;
 	 	default:
@@ -332,6 +366,8 @@ void DeleteUser()
 			getch();
 			
 			system("cls");
+			
+			/* Call Modul Delete Data User */
 			DeleteUser();
 			break;
     }
@@ -366,6 +402,8 @@ void AlertDeleteOneRecordUser()
 	}
 	
 	system("cls");
+	
+	/* Call Modul Delete Data User */
 	DeleteUser();
 }
 
@@ -378,6 +416,7 @@ void DeleteOneRecordUser(User UserData, int ID)
 		
 	if(Check != 0)
 	{
+		/* Open File */
 		f_user = fopen("User.DAT", "rb");
 		f_tempuser = fopen("TempUser.DAT", "wb");
 		
@@ -388,11 +427,15 @@ void DeleteOneRecordUser(User UserData, int ID)
 				fwrite(&UserData, sizeof(UserData), 1, f_tempuser);
 			}
 		}
-			
+		
+		/* Close File */
 		fclose(f_user);
 		fclose(f_tempuser);
-			
+		
+		/* Remove File */
 		remove("User.DAT");
+		
+		/* Rename File */
     	rename("TempUser.DAT", "User.DAT");
 	} else{
 		system("cls");
@@ -401,6 +444,8 @@ void DeleteOneRecordUser(User UserData, int ID)
 		getch();
 			
 		system("cls");
+		
+		/* Call Modul Alert Delete One Record Data User */
 		AlertDeleteOneRecordUser();
 	}
 }
@@ -415,17 +460,24 @@ void AlertDeleteAllUser()
 	if (Answer == 'Y' || Answer == 'y')
 	{
 		system("cls");
+		
+		/* Call Modul Delete All Data User */
 		DeleteAllUser();
 	}
 	system("cls");
+	
+	/* Call Modul Delete Data User */
 	DeleteUser();
 }
 
 void DeleteAllUser()
 {
 	FILE *f_user;
-
+	
+	/* Open File */
 	f_user = fopen("User.DAT","wb");
+	
+	/* Close File */
 	fclose(f_user);
 	
 	printf("All data was deleted!!!\n");
@@ -433,5 +485,7 @@ void DeleteAllUser()
 	getch();
 			
 	system("cls");
+	
+	/* Call Modul Delete Data User */
 	DeleteUser();
 }

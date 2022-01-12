@@ -20,9 +20,11 @@ int SessionDestroy()
 	User UserData, TempUserData;
 	FILE *f_user, *f_tempuser;
 	
+	/* Open File */
 	f_user = fopen("User.DAT", "rb");
 	f_tempuser = fopen("TempUser.DAT", "wb");
 	
+	/* Error Handle About Open File */
 	if (!f_user)
 	{
 		printf ("ERROR : Sorry the file is unavailable!!!\n"); 
@@ -34,6 +36,7 @@ int SessionDestroy()
 		exit(1); 
 	}
 	
+	/* Error Handle About Open File */
 	if (!f_tempuser)
 	{
 		printf ("ERROR : Sorry the file is unavailable!!!\n"); 
@@ -63,9 +66,13 @@ int SessionDestroy()
 		}
 	}
 	
+	/* Close File */
 	fclose(f_user);
 	fclose(f_tempuser);
-
+	
+	/* Remove File */
 	remove("User.DAT");
+	
+	/* Rename File */
 	rename("TempUser.DAT", "User.DAT");
 }

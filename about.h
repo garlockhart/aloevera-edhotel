@@ -8,6 +8,7 @@ Date			: 08/12/2001
 #ifndef about_H
 #define about_H
 
+/* ===== About ===== */
 int About();
 
 #endif

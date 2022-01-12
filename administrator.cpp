@@ -51,15 +51,19 @@ int AdministratorMenu()
 	
 	switch (menu){
 		case 1:
+			/* Call Modul Menu User */
 			MenuUser();
 			break;
 		case 2:
+			/* Call Modul Menu Room */
 			MenuRoom();
 			break;			
 		case 3:
+			/* Call Modul Menu Report */
 			ReportMenu();
 			break;
 		case 4:
+			/* Call Modul Logout */
 	        Logout();
 			break;
 	 	default:
@@ -68,6 +72,8 @@ int AdministratorMenu()
 	 		getche();
 	 		
 	 		system("cls");
+	 		
+	 		/* Call Modul Menu Administrator */
 			AdministratorMenu();
 			break;
 	}

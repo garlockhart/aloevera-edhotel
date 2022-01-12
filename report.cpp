@@ -39,19 +39,25 @@ void ReportMenu()
 	
 	switch(Menu){
 		case 1 :
+			/* Call Modul Filter Data Report Reservation by Day */
 			ReservationReportDay();
 			break;
 		case 2 :
+			/* Call Modul Filter Data Report Reservation by Month */
 			ReservationReportMonth();
 			break;
 		case 3 :
+			/* Call Modul Filter Data Report Reservation by Year */
 			ReservationReportYear();
 			break;
 		case 4 :
+			/* Call Modul Show All Data Reservation */
 			ReportShowAll();
 			break;
 		case 5 :
 			system("cls");
+			
+			/* Call Modul Menu Administrator */
 			AdministratorMenu();
 			break;
 		default :
@@ -59,6 +65,8 @@ void ReportMenu()
 	 		getch();
 	 		
 	 		system("cls");
+	 		
+	 		/* Call Modul Menu Report */
 			ReportMenu();
 			break;
 	}
@@ -84,13 +92,18 @@ void ReservationReportDay()
 	fflush(stdin);
 	scanf("%d", &Year);
 	
+	/* Open File */
 	f_reservation = fopen("Reservation.DAT","rb");
+	
+	/* Erro Handle About Open File */
 	if (!f_reservation)
 	{
 		printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
 		
 		system("cls");
+		
+		/* Call Modul Menu Report */
 		ReportMenu();
 	}
 	
@@ -114,7 +127,11 @@ void ReservationReportDay()
 				getch();
 		
 				system("cls");
+				
+				/* Close File */
 				fclose(f_reservation);
+				
+				/* Call Modul Menu Report */
 				ReportMenu();
 			}
 		}
@@ -122,7 +139,11 @@ void ReservationReportDay()
 	} else{
 		printf("ERROR : No data for this time period");
 		system("cls");
+		
+		/* Close File */
 		fclose(f_reservation);
+		
+		/* Call Modul Menu Report */
 		ReportMenu();
 	}
 }
@@ -143,13 +164,18 @@ void ReservationReportMonth()
 	fflush(stdin);
 	scanf("%d", &Year);
 	
+	/* Open File */
 	f_reservation = fopen("Reservation.DAT","rb");
+	
+	/* Error Handle About Open File */
 	if (!f_reservation)
 	{
 		printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
 		
 		system("cls");
+		
+		/* Call Modul Menu Report */
 		ReportMenu();
 	}
 	
@@ -173,14 +199,22 @@ void ReservationReportMonth()
 				getch();
 		
 				system("cls");
+				
+				/* Close File */
 				fclose(f_reservation);
+				
+				/* Call Modul Menu Report */
 				ReportMenu();
 			}
 		}
 	} else{
 		printf("ERROR : No data for this time period");
 		system("cls");
+		
+		/* Close File */
 		fclose(f_reservation);
+		
+		/* Call Modul Menu Report */
 		ReportMenu();
 	}
 }
@@ -196,13 +230,18 @@ void ReservationReportYear()
 	fflush(stdin);
 	scanf("%d", &Year);
 	
+	/* Open File */
 	f_reservation = fopen("Reservation.DAT","rb");
+	
+	/* Error Handle About Open File */
 	if (!f_reservation)
 	{
 		printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
 		
 		system("cls");
+		
+		/* Call Modul Menu Report */
 		ReportMenu();
 	}
 	
@@ -226,14 +265,22 @@ void ReservationReportYear()
 				getch();
 		
 				system("cls");
+				
+				/* Close File */
 				fclose(f_reservation);
+				
+				/* Call Modul Menu Report */
 				ReportMenu();
 			}
 		}
 	} else{
 		printf("ERROR : No data for this time period");
 		system("cls");
+		
+		/* Close File */
 		fclose(f_reservation);
+		
+		/* Call Modul Menu Report */
 		ReportMenu();
 	}
 }
@@ -241,33 +288,33 @@ void ReservationReportYear()
 void ReportShowAll()
 {
 	system("cls");
+	
+	/* Call Modul Show Data Reservation */
 	ReservationData();
 		
     printf("Press Any Key to continue . . .");
     getche();
     
     system("cls");
+    
+    /* Call Modul Menu Report */
     ReportMenu();
 }
 
 int CheckReservationDate(Reservation ReservationData, int Day, int Month, int Year)
 {
-	int i = 1;
 	FILE *f_reservation;
 	
-	if(i == 1){
-		f_reservation = fopen("Reservation.DAT","rb");
-		while(fread(&ReservationData, sizeof(ReservationData), 1, f_reservation))
+	/* Open File */
+	f_reservation = fopen("Reservation.DAT","rb");
+		
+	while(fread(&ReservationData, sizeof(ReservationData), 1, f_reservation))
+	{
+		if(Day == ReservationData.ReservationDate.Day || Month == ReservationData.ReservationDate.Month || Year == ReservationData.ReservationDate.Year)
 		{
-			if(Day == ReservationData.ReservationDate.Day || Month == ReservationData.ReservationDate.Month || Year == ReservationData.ReservationDate.Year)
-			{
-				fclose(f_reservation);
-				return 1;
-			}
+			/* Close File */
+			fclose(f_reservation);
+			return 1;
 		}
-	} else{
-		i = 0;
-		fclose(f_reservation);
-		return 0;
 	}
 }

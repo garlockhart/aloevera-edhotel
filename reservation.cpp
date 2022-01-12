@@ -40,18 +40,23 @@ int ReservationMenu()
 	
     switch (menu) {
         case 1:
+        	/* Call Modul Create Data Reservation */
 			ReservationCreate();
 			break;
 		case 2:
+			/* Call Modul Read Data Reservation */
 			ReservationRead();
 			break;
 		case 3:
+			/* Call Modul Update Data Reservation */
 			ReservationUpdate();
 			break;
 	 	case 4:
+	 		/* Call Modul Delete Data Reservation */
 			ReservationDelete();
 			break;
 		case 5:
+			/* Call Modul Menu Concierge Menu */
 			ConciergeMenu();
 			break;
 	 	default:
@@ -59,6 +64,8 @@ int ReservationMenu()
 	 		getch();
 	 		
 	 		system("cls");
+	 		
+	 		/* Call Modul Menu Reservation */
 			ReservationMenu();
 			break;
     }
@@ -77,14 +84,19 @@ void ReservationCreate()
 	now = *localtime(&t);
 	
 	system("cls");
+	
+	/* Open File */
 	f_reservation = fopen("Reservation.DAT", "ab+");
-
+	
+	/* Error Handle About Open File */
 	if (!f_reservation)
 	{
 		printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
 		
 		system("cls");
+		
+		/* Call Modul Menu Reservation */
 		ReservationMenu();
 	}
 	
@@ -102,6 +114,8 @@ void ReservationCreate()
 			getch();
 			
 			system("cls");
+			
+			/* Call Modul Create Data Reservation */
 			ReservationCreate();
 		}
 		
@@ -124,6 +138,7 @@ void ReservationCreate()
 		printf("Age			: ");
 		fflush(stdin);
 		scanf("%d", &ReservationData.Age);
+		
 		checkage = ValidationNumbers(ReservationData.Age);
 		if(checkage != 1){
 			system("cls");
@@ -133,6 +148,8 @@ void ReservationCreate()
 			getch();
 						
 			system("cls");
+			
+			/* Call Modul Create Data Reservation */
 			ReservationCreate();
 		}
 				
@@ -148,9 +165,12 @@ void ReservationCreate()
 		if(checkroom != 0)
 		{
 			ReservationData.RentRoomData.Code = roomcode;
+			
+			/* Open File */
 			f_room = fopen("Room.DAT","rb");
 			f_temproom = fopen("TempRoom.DAT", "wb");
-			while(fread(&roomdata, sizeof(roomdata),1, f_room)){
+			
+			while(fread(&roomdata, sizeof(roomdata), 1, f_room)){
 				if(roomcode == roomdata.code){
 					strcpy(ReservationData.RentRoomData.Name,roomdata.name);
 					ReservationData.RentRoomData.Price = roomdata.price;
@@ -166,6 +186,8 @@ void ReservationCreate()
 						getch();
 						
 						system("cls");
+						
+						/* Call Function Create Data Reservation */
 						ReservationCreate();
 					}
 					
@@ -177,10 +199,14 @@ void ReservationCreate()
 				}
 			}
 			
+			/* Close File */
 			fclose(f_room);
 			fclose(f_temproom);
-		
+			
+			/* Remove File */
 			remove("Room.DAT");
+			
+			/* Rename File */
 			rename("TempRoom.DAT", "Room.DAT");
 		} else {
 			system("cls");
@@ -189,6 +215,8 @@ void ReservationCreate()
 			getch();
 					
 			system("cls");
+			
+			/* Call Modul Create Data Reservation */
 			ReservationCreate();
 		}
 		
@@ -229,9 +257,11 @@ void ReservationCreate()
 			getch();
 						
 			system("cls");
+			
+			/* Call Modul Create Data Reservation */
 			ReservationCreate();
 		}
-//		((Tahun Check Out - Tahun Check In) * 365 + (Bulan Check Out - Bulan Check In) * 30 + (Hari Check Out - Hari Check In)
+
 		printf("\n\n");
 	  	printf("Long Stay      	: %i\n", ReservationData.LongStay);
 		
@@ -267,6 +297,7 @@ void ReservationCreate()
 		more = getche();
 	} while (more == 'Y' || more == 'y');
 	
+	/* Close File */
 	fclose(f_reservation);
 	
 	system("cls");
@@ -275,6 +306,8 @@ void ReservationCreate()
 	getche();
 	
 	system("cls");
+	
+	/* Call Modul Menu Reservation */
 	ReservationMenu();
 }
 
@@ -284,14 +317,18 @@ void CountReservationData()
 	char line[255];
 	int count = 0;
 	
+	/* Open File */
 	f_reservation = fopen("Reservation.DAT", "rt");
 	
+	/* Error Handle About Open File */
     if (!f_reservation) 
     { 
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
 		
 		system("cls");
+		
+		/* Call Modul Menu Reservation */
 		ReservationMenu();
     } 
 	
@@ -303,6 +340,7 @@ void CountReservationData()
 	printf("The amount of data available is %d", count);
     printf("\n\n");
     
+    /* Close File */
     fclose(f_reservation);
 }
 
@@ -311,6 +349,7 @@ void ReservationData()
 	FILE *f_reservation;
 	Reservation ReservationData;
 	
+	/* Call Modul Count Data Reservation */
 	CountReservationData();
     
     printf("|===================================================================================|\n");
@@ -319,8 +358,10 @@ void ReservationData()
     printf("| ID     Guest Name               Type            Total         Price               |\n");
     printf("|===================================================================================|\n");
     
+    /* Open File */
     f_reservation = fopen("Reservation.DAT", "rt");
 	
+	/* Error Handle About Open File */
     if (!f_reservation) 
     { 
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
@@ -337,17 +378,20 @@ void ReservationData()
 	
 	printf("\n\n\n");
 	
+	/* Close File */
 	fclose(f_reservation);	
 }
 
 void ReservationRead(){
-	
+	/* Call Modul Data Reservation */
 	ReservationData();
 		
     printf("Press Any Key to continue . . .");
     getche();
     
     system("cls");
+    
+    /* Call Modul Menu Reservation */
     ReservationMenu();
 }
 
@@ -355,11 +399,14 @@ int CheckReservationCode(Reservation ReservationData, int id)
 {
 	FILE *f_reservation;
 	
+	/* Open File */
 	f_reservation = fopen("Reservation.DAT","rb");
+	
 	while(fread(&ReservationData, sizeof(ReservationData), 1, f_reservation))
 	{
-		if( id == ReservationData.ReservationCode)
+		if(id == ReservationData.ReservationCode)
 		{
+			/* Close File */
 			fclose(f_reservation);
 			return 1;
 		}
@@ -370,6 +417,8 @@ void ReservationUpdate()
 {
 	int MenuUpdate;
 	system("cls");
+	
+	/* Call Modul Show Data Reservation */
 	ReservationData();
 	
 	printf("|==================================|\n");
@@ -386,9 +435,11 @@ void ReservationUpdate()
 	
     switch (MenuUpdate) { 
         case 1:
+        	/* Call Modul Update Data Status Reservation */
 			UpdateReservationStatus();
 			break;
 		case 2:
+			/* Call Modul Menu Reservation */
 			ReservationMenu();
 			break;
 	 	default:
@@ -397,6 +448,8 @@ void ReservationUpdate()
 			getch();
 			
 			system("cls");
+			
+			/* Call Modul Update Data Reservation */
 			ReservationUpdate();
 			break;
     }
@@ -418,44 +471,57 @@ void UpdateReservationStatus()
 	fflush(stdin);
 	scanf("%[^\n]",&Status); 
 	
+	/* Open File */
 	f_reservation = fopen("Reservation.DAT", "rb");
 	f_room = fopen("Room.DAT", "rb");
 	f_tempreservation = fopen("TempReservation.DAT", "wb");
 	f_temproom = fopen("TempRoom.DAT", "wb");
 	
+	/* Error Handle About Open File */
 	if (!f_reservation) 
     { 
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
 		
 		system("cls");
+		
+		/* Call Modul Update Data Reservation */
 		ReservationUpdate();
     } 
     
+    /* Error Handle About Open File */
     if (!f_room) 
     { 
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
 		
 		system("cls");
+		
+		/* Call Modul Update Data Reservation */
 		ReservationUpdate();
     } 
     
+    /* Error Handle About Open File */
     if (!f_temproom) 
     { 
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
 		
 		system("cls");
+		
+		/* Call Modul Update Data Reservation */
 		ReservationUpdate();
     }
     
+    /* Error Handle About Open File */
     if (!f_tempreservation) 
     { 
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
 		
 		system("cls");
+		
+		/* Call Modul Update Data Reservation */
 		ReservationUpdate();
     }
     
@@ -515,13 +581,17 @@ void UpdateReservationStatus()
 		}
 	}
 	
+	/* Close File */
 	fclose(f_reservation);
 	fclose(f_room);
 	fclose(f_tempreservation);
 	fclose(f_temproom);
-
+	
+	/* Remove File */
 	remove("Reservation.DAT");
 	remove("Room.DAT");
+	
+	/* Rename File */
 	rename("TempReservation.DAT", "Reservation.DAT");
 	rename("TempRoom.DAT", "Room.DAT");
 	
@@ -531,6 +601,8 @@ void UpdateReservationStatus()
 	getch();
 	
 	system("cls");
+	
+	/* Call Modul Update Data Reservation */
 	ReservationUpdate();
 }
 
@@ -538,6 +610,8 @@ void ReservationDelete()
 {
 	int menudelete;
 	system("cls");
+	
+	/* Call Modul Show Data Reservation */
 	ReservationData();
 	
 	printf("|==================================|\n");
@@ -555,12 +629,15 @@ void ReservationDelete()
 	
     switch (menudelete) { 
         case 1:
+        	/* Call Modul Alert Delete One Record Data Reservation */
 			AlertDeleteOneReservationData();
 			break;
 		case 2:
+			/* Call Modul Alert Delete All Data Reservation */
 			AlertDeleteAllReservationData();
 			break;
 		case 3:
+			/* Call Modul Menu Reservation */
 			ReservationMenu();
 			break;
 	 	default:
@@ -569,10 +646,13 @@ void ReservationDelete()
 			getch();
 			
 			system("cls");
+			
+			/* Call Modul Delete Reservation */
 			ReservationDelete();
 			break;
     }
 }
+
 void AlertDeleteOneReservationData()
 {
 	Reservation ReservationData;
@@ -591,6 +671,8 @@ void AlertDeleteOneReservationData()
 	if (Answer == 'Y' || Answer == 'y')
 	{
 		system("cls");
+		
+		/* Call Modul Delete One Data Reservation */
 		DeleteOneReservationData(ReservationData, Code);
 		
 		printf("Data successfully deleted!!!\n");
@@ -598,10 +680,14 @@ void AlertDeleteOneReservationData()
 		getch();
 		
 		system("cls");
+		
+		/* Call Modul Delete Data Reservation */
 		ReservationDelete();
 	}
 	
 	system("cls");
+	
+	/* Call Modul Delete Data Reservation */
 	ReservationDelete();
 }
 
@@ -614,6 +700,7 @@ void DeleteOneReservationData(Reservation ReservationData, int ID)
 		
 	if(Check != 0)
 	{
+		/* Open File */
 		f_reservation = fopen("Reservation.DAT", "rb");
 		f_tempreservation = fopen("TempReservation.DAT", "wb");
 		
@@ -624,11 +711,15 @@ void DeleteOneReservationData(Reservation ReservationData, int ID)
 				fwrite(&ReservationData, sizeof(ReservationData), 1, f_tempreservation);
 			}
 		}
-			
+		
+		/* Close File */
 		fclose(f_reservation);
 		fclose(f_tempreservation);
-			
+		
+		/* Remove File */
 		remove("Reservation.DAT");
+		
+		/* Rename File */
     	rename("TempReservation.DAT", "Reservation.DAT");
 	} else{
 		system("cls");
@@ -637,7 +728,9 @@ void DeleteOneReservationData(Reservation ReservationData, int ID)
 		getch();
 			
 		system("cls");
-		ReservationCreate();
+		
+		/* Call Modul Delete Data Reservation */
+		ReservationDelete();
 	}
 }
 
@@ -651,17 +744,24 @@ void AlertDeleteAllReservationData()
 	if (Answer == 'Y' || Answer == 'y')
 	{
 		system("cls");
+		
+		/* Call Modul Delete All Data Reservation */
 		DeleteAllReservationData();
 	}
 	system("cls");
+	
+	/* Call Modul Delete Data Reservation */
 	ReservationDelete();
 }
 
 void DeleteAllReservationData()
 {
 	FILE *f_reservation;
-
+	
+	/* Open File */
 	f_reservation = fopen("Reservation.DAT","wb");
+	
+	/* Close File */
 	fclose(f_reservation);
 	
 	printf("All data was deleted!!!\n");
@@ -669,5 +769,7 @@ void DeleteAllReservationData()
 	getch();
 			
 	system("cls");
+	
+	/* Call Modul Delete Data Reservation */
 	ReservationDelete();
 }

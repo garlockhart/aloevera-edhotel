@@ -8,6 +8,7 @@ Date			: 01/01/2022
 #ifndef compare_h
 #define compare_h
 
+/* String Compare */
 int StringCompare(char*,char*); 
 
 #endif

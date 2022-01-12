@@ -13,6 +13,7 @@ Date			: 07/01/2022
 #define BACKSPACE 8
 #define SPACE 32
 
+/* Hidden Password */
 void HiddenPassword(char Text[50]);
 
 #endif

@@ -44,9 +44,11 @@ int Login()
 	printf("\n");
 	fflush(stdin);
 	
+	/* Open File */
 	f_user = fopen("User.DAT", "rb");
 	f_tempuser = fopen("TempUser.DAT", "wb");
 	
+	/* Error Handle About Open File */
 	if (!f_user)
 	{
 		printf ("ERROR : Sorry the file is unavailable!!!\n"); 
@@ -58,6 +60,7 @@ int Login()
 		Welcome(); 
 	}
 	
+	/* Error Handle About Open File */
 	if (!f_tempuser)
 	{
 		printf ("ERROR : Sorry the file is unavailable!!!\n"); 
@@ -87,17 +90,25 @@ int Login()
 		}
 	}
 	
+	/* Close File */
 	fclose(f_user);
 	fclose(f_tempuser);
-
+	
+	/* Remove File */
 	remove("User.DAT");
+	
+	/* Rename File */
 	rename("TempUser.DAT", "User.DAT");
 	
 	if (TempUserData.Role == 1){
 		system("cls");
+		
+		/* Call Modul Menu Administrator */
 		AdministratorMenu();
 	} else if(TempUserData.Role == 2){
 		system("cls");
+		
+		/* Call Modul Menu Concierge */
 		ConciergeMenu();
 	} else{
 		system("cls");
@@ -107,16 +118,22 @@ int Login()
 		getch();
 			
 		system("cls");
+		
+		/* Call Modul Welcome */
 		Welcome();
 	}
 }
 
 int Logout()
 {
+	/* Call Modul Session Destroy */
 	SessionDestroy();
+	
 	printf ("Account successfully logout!!!\n"); 
     getch();
 		
 	system("cls");
+	
+	/* Call Modul Welcome */
 	Welcome();
 }

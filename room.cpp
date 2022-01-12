@@ -36,18 +36,23 @@ int MenuRoom()
 	
     switch (Menu) { 
         case 1:
+        	/* Call Modul Create Data Room */
 			CreateRoom();
 			break;
 		case 2:
+			/* Call Modul Read Data Room */
 			ReadRoom();
 			break;
 		case 3:
+			/* Call Modul Update Data Room */
 			UpdateRoom();
-			break; 
+			break;
 		case 4:
+			/* Call Modul Delete Data Room */
 			DeleteRoom();
 			break;
 	 	case 5:
+	 		/* Call Modul Menu Administrator */
 			AdministratorMenu();
 			break;
 	 	default:
@@ -55,6 +60,8 @@ int MenuRoom()
 	 		getch();
 	 		
 	 		system("cls");
+	 		
+	 		/* Call Modul Menu Room */
 			MenuRoom();
 			break;
     }
@@ -67,8 +74,10 @@ void CreateRoom()
 	room roomdata;
     FILE *f_room;
 	
+	/* Open File */
 	f_room = fopen("Room.DAT", "ab+");
-
+	
+	/* Error Handle About Open File */
     if (!f_room) 
     { 
         printf ("ERROR : Sorry the file is unavailable!!!\n");
@@ -77,6 +86,8 @@ void CreateRoom()
 		getch();
 			
 		system("cls");
+		
+		/* Call Modul Menu Data Room */
 		MenuRoom(); 
     }
     
@@ -100,6 +111,8 @@ void CreateRoom()
 			getch();
 			
 			system("cls");
+			
+			/* Call Modul Create Data Room */
 			CreateRoom();
 		}
 		
@@ -125,6 +138,8 @@ void CreateRoom()
 			getch();
 			
 			system("cls");
+			
+			/* Call Modul Create Data Room */
 			CreateRoom();
 		}
 		
@@ -141,6 +156,7 @@ void CreateRoom()
 		More = getche();
 	} while (More == 'Y' || More == 'y');
 	
+	/* Close File */
 	fclose(f_room);
 	
 	system("cls");
@@ -149,6 +165,8 @@ void CreateRoom()
 	getche();
 	
 	system("cls");
+	
+	/* Call Modul Menu Room */
 	MenuRoom();
 }
 
@@ -158,16 +176,20 @@ void CountRoom()
 	char line[255];
 	int count = 0;
 	
+	/* Open File */
 	f_room = fopen("Room.DAT", "rt");
 	
+	/* Error Handle About Open File */
     if (!f_room) 
     { 
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
 		
 		system("cls");
+		
+		/* Call Modul Menu Room */
 		MenuRoom();
-    } 
+    }
 	
 	while(fgets(line, 255, f_room))
     {
@@ -177,6 +199,7 @@ void CountRoom()
 	printf("The amount of data available is %d", count);
     printf("\n\n");
     
+    /* Close File */
     fclose(f_room);
 }
 
@@ -185,6 +208,7 @@ void ShowRoom()
 	FILE *f_room;
 	room roomdata;
     
+    /* Call Modul Count Data Room */
     CountRoom();
 
     printf("|==================================================|\n");
@@ -193,14 +217,18 @@ void ShowRoom()
     printf("| ID      Name      Type     Total       Price     |\n");
     printf("|==================================================|\n");
     
+    /* Open File */
     f_room = fopen("Room.DAT", "rt");
 	
+	/* Error Handle About Open File */
     if (!f_room) 
     { 
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
 		
 		system("cls");
+		
+		/* Call Modul Menu Room */
 		MenuRoom();
     } 
 	
@@ -211,17 +239,21 @@ void ShowRoom()
 	
 	printf("\n\n\n");
 	
+	/* Close File */
 	fclose(f_room);
 }
 
 void ReadRoom() 
 {
+	/* Call Modul Show Data Room */
 	ShowRoom();
 	
     printf("Press Any Key to continue . . .");
     getche();
     
     system("cls");
+    
+    /* Call Modul Menu Room */
     MenuRoom();
 } 
 
@@ -235,8 +267,6 @@ void UpdateRoom()
 	printf("Enter the Room Code to be updated : ");
 	scanf("%d", &code);
 	
-	
-	
 	printf("Name : ");
 	fflush(stdin);
 	gets(temproomdata.name);
@@ -244,7 +274,7 @@ void UpdateRoom()
 	printf("Type (Single/Double/Triple) : ");
 	fflush(stdin);
 	gets(temproomdata.type);
-		
+	
 	printf("Total Room : ");
 	fflush(stdin);
 	scanf("%d", &temproomdata.total);
@@ -259,6 +289,8 @@ void UpdateRoom()
 		getch();
 			
 		system("cls");
+		
+		/* Call Modul Update Data Room */
 		UpdateRoom();
 	}
 		
@@ -269,24 +301,31 @@ void UpdateRoom()
 	printf("\n");
 	fflush(stdin);
 	
+	/* Open File */
 	f_room = fopen("Room.DAT", "rb");
 	f_temproom = fopen("TempRoom.DAT", "wb");
 	
+	/* Error Handle About Open File */
 	if (!f_room) 
     { 
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
 		
 		system("cls");
+		
+		/* Call Modul Menu Room */
 		MenuRoom();
     } 
     
+    /* Error Handle About Open File */
     if (!f_temproom) 
     { 
         printf ("ERROR : Sorry file cannot be open!!!\n"); 
         getch();
 		
 		system("cls");
+		
+		/* Call Modul Menu Room */
 		MenuRoom();
     }
 	
@@ -300,10 +339,14 @@ void UpdateRoom()
 		}
 	}
 	
+	/* Close File */
 	fclose(f_room);
 	fclose(f_temproom);
-
+	
+	/* Remove File */
 	remove("Room.DAT");
+	
+	/* Rename File */
 	rename("TempRoom.DAT", "Room.DAT");
 	
 	system("cls");
@@ -312,6 +355,8 @@ void UpdateRoom()
 	getch();
 	
 	system("cls");
+	
+	/* Call Modul Menu Room */
 	MenuRoom();
 }
 
@@ -319,11 +364,14 @@ int CheckRoomCode(room roomdata, int id)
 {
 	FILE *f_room;
 	
+	/* Open File */
 	f_room = fopen("Room.DAT","rb");
+	
 	while(fread(&roomdata, sizeof(roomdata), 1, f_room))
 	{
 		if(id == roomdata.code)
 		{
+			/* Close File */
 			fclose(f_room);
 			return 1;
 		}
@@ -334,6 +382,7 @@ void DeleteRoom()
 {
 	int menudelete;
 	
+	/* Call Modul Show Data Room */
 	ShowRoom();
 	
 	printf("|==================================|\n");
@@ -351,12 +400,15 @@ void DeleteRoom()
 	
     switch (menudelete) { 
         case 1:
+        	/* Call Modul Alert Delete One Record Data Room */
 			AlertDeleteOneRecordRoom();
 			break;
 		case 2:
+			/* Call Modul Alert Delete All Data Room */
 			AlertDeleteAllRoom();
 			break;
 		case 3:
+			/* Call Modul Menu Room */
 			MenuRoom();
 			break;
 	 	default:
@@ -365,6 +417,8 @@ void DeleteRoom()
 			getch();
 			
 			system("cls");
+			
+			/* Call Modul Delete Data Room */
 			DeleteRoom();
 			break;
     }
@@ -388,6 +442,8 @@ void AlertDeleteOneRecordRoom()
 	if (answer == 'Y' || answer == 'y')
 	{
 		system("cls");
+		
+		/* Call Modul Delete One Rocord Data Room */
 		DeleteOneRecordRoom(roomdata, code);
 		
 		printf("Data successfully deleted!!!\n");
@@ -395,10 +451,14 @@ void AlertDeleteOneRecordRoom()
 		getch();
 		
 		system("cls");
+		
+		/* Call Modul Delete Data Room */
 		DeleteRoom();
 	}
 	
 	system("cls");
+	
+	/* Call Modul Delete Data Room */
 	DeleteRoom();
 }
 
@@ -411,6 +471,7 @@ void DeleteOneRecordRoom(room roomdata, int id)
 		
 	if(check != 0)
 	{
+		/* Open File */
 		f_room = fopen("Room.DAT", "rb");
 		f_temproom = fopen("TempRoom.DAT", "wb");
 		
@@ -422,10 +483,14 @@ void DeleteOneRecordRoom(room roomdata, int id)
 			}
 		}
 			
+		/* Close File */
 		fclose(f_room);
 		fclose(f_temproom);
-			
+		
+		/* Remove File */
 		remove("Room.DAT");
+		
+		/* Rename File */
     	rename("TempRoom.DAT", "Room.DAT");
 	} else{
 		system("cls");
@@ -434,6 +499,8 @@ void DeleteOneRecordRoom(room roomdata, int id)
 		getch();
 			
 		system("cls");
+		
+		/* Call Modul Delete Data Room */
 		DeleteRoom();
 	}
 }
@@ -451,14 +518,19 @@ void AlertDeleteAllRoom()
 		DeleteAllRoom();
 	}
 	system("cls");
+	
+	/* Call Modul Delete Data Room */
 	DeleteRoom();
 }
 
 void DeleteAllRoom()
 {
 	FILE *RoomData;
-
+	
+	/* Open File */
 	RoomData = fopen("Room.DAT","wb");
+	
+	/* Close File */
 	fclose(RoomData);
 	
 	printf("All data was deleted!!!\n");
@@ -466,5 +538,7 @@ void DeleteAllRoom()
 	getch();
 			
 	system("cls");
+	
+	/* Call Modul Delete Data Room */
 	DeleteRoom();
 }

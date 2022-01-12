@@ -8,6 +8,7 @@ Date			: 08/12/2001
 #ifndef reservation_H
 #define reservation_H
 
+/* Struct Rent Room */
 typedef struct {
 	int Code;
 	char Name[20];
@@ -15,12 +16,14 @@ typedef struct {
 	long int Price;
 }RentRoom;
 
+/* Struct Date */
 typedef struct{
 	int Day;
 	int Month;
 	int Year;
 }Date;
 
+/* Struct Reservation */
 typedef struct {
 	int ReservationCode;
 	char NIN[16];
@@ -39,14 +42,29 @@ typedef struct {
 	char Status[15];
 }Reservation; 
 
+/* Menu Reservation */
 int ReservationMenu();
+
+/* Create Data Reservation */
 void ReservationCreate();
+
+/* Count Data Reservation */
 void CountReservationData();
+
+/* Show Data Reservation */
 void ReservationData();
+
+/* Read Data Reservation */
 void ReservationRead();
+
+/* Check Data Reservation by Code */
 int CheckReservationCode(Reservation ReservationData, int ID);
+
+/* Update Data Reservation */
 void ReservationUpdate();
 void UpdateReservationStatus();
+
+/* Delete Data Reservation */
 void ReservationDelete();
 void AlertDeleteOneReservationData();
 void DeleteOneReservationData(Reservation ReservationData, int ID);

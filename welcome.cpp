@@ -52,12 +52,15 @@ int Welcome()
 	
 	switch (Menu){
 		case 1:
+			/* Call Modul Login */
 			Login();
 			break;
 		case 2:
+			/* Call Modul About */
 			About();
 			break;
 		case 3:
+			/* Call Modul FAQ */
 			FAQ();
 			break; 
 		case 4:
@@ -77,6 +80,8 @@ int Welcome()
 	 		getche();
 	 		
 	 		system("cls");
+	 		
+	 		/* Call Modul Welcome */
 			Welcome();
 			break;
 	}

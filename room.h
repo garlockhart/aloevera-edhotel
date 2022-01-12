@@ -10,6 +10,7 @@ Date			: 08/12/2001
 
 #define JUM_BLOK 1
 
+/* Struct Room */
 typedef struct {
     int code; 
     char name[20]; 
@@ -18,13 +19,28 @@ typedef struct {
     unsigned long int price;
 }room;  
 
+/* Menu Room */
 int MenuRoom();
+
+/* Create Data Room */
 void CreateRoom();
+
+/* Count Data Room */
 void CountRoom();
+
+/* Show Data Room */
 void ShowRoom();
+
+/* Read Data Room */
 void ReadRoom();
+
+/* Update Data Room */
 void UpdateRoom();
+
+/* Check Data Room by Code */
 int CheckRoomCode(room roomdata, int id);
+
+/* Delete Data Room */
 void DeleteRoom();
 void AlertDeleteOneRecordRoom();
 void DeleteOneRecordRoom(room roomdata, int id);
